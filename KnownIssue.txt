@@ -1,0 +1,14 @@
+
+Known Issue for jsjws 1.0
+
+- Currently 'jsjws 1.0' only supports ASCII code characters for
+  JWS Header and Payload even though they can be represented any
+  UTF-8 strings as defined in JWS specification.
+
+- The 'jsjws 1.0' doesn't verify the matching between
+  'alg' attribute value of JWS Header such like "ES256" and
+  a signature algorithm of PKCS#1 signature value in JWS.
+
+These issues may be solved in the future version of 'jsjws'.
+
+
