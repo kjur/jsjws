@@ -1,6 +1,9 @@
 
 ChangeLog for jsjws
 
+* 1.0.1 Relasse [Mar 06, 2012]
+ - API document is added.
+
 * 1.0 Initial Relasse [Mar 04, 2012]
 
 
