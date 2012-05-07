@@ -1,9 +1,14 @@
 
 ChangeLog for jsjws
 
+* 1.1 Relasse [Mar 07, 2012]
+ - following features are added.
+   - UTF-8 string support in JWS Header and Payload
+   - sign JWS with PEM formatted PKCS# RSA private key without passcode
+   - verify JWS with PEM formatted X.509 certificate
+
 * 1.0.1 Relasse [Mar 06, 2012]
  - API document is added.
 
 * 1.0 Initial Relasse [Mar 04, 2012]
-
 
