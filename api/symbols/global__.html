@@ -278,6 +278,15 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/global__.html#b64utoutf8">b64utoutf8</a></b>(s)
+								</div>
+								<div class="description">convert a Base64URL encoded string to a UTF-8 encoded string including CJK or Latin.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/global__.html#BAtohex">BAtohex</a></b>(a)
 								</div>
 								<div class="description">convert an array of bytes(Number) to hexadecimal string.</div>
@@ -296,9 +305,27 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/global__.html#encodeURIComponentAll">encodeURIComponentAll</a></b>(s)
+								</div>
+								<div class="description">convert UTFa hexadecimal string to a URLComponent string such like "%67%68".</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/global__.html#hextob64u">hextob64u</a></b>(s)
 								</div>
 								<div class="description">convert a hexadecimal string to a Base64URL encoded string.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/global__.html#hextouricmp">hextouricmp</a></b>(s)
+								</div>
+								<div class="description">convert a hexadecimal string to a URLComponent string such like "%67%68".</div>
 							</td>
 						</tr>
 					
@@ -356,6 +383,24 @@ ul.inheritsList
 							</td>
 						</tr>
 					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/global__.html#uricmptohex">uricmptohex</a></b>(s)
+								</div>
+								<div class="description">convert a URLComponent string such like "%67%68" to a hexadecimal string.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/global__.html#utf8tob64u">utf8tob64u</a></b>(s)
+								</div>
+								<div class="description">convert a UTF-8 encoded string including CJK or Latin to a Base64URL encoded string.</div>
+							</td>
+						</tr>
+					
 					</tbody>
 				</table>
 				
@@ -388,7 +433,7 @@ ul.inheritsList
 						convert a Base64 encoded string to a Base64URL encoded string.<br/>Example: "ab+c3f/==" &rarr; "ab-c3f_"
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/base64x-1.0.js.html">base64x-1.0.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/base64x-1.1.js.html">base64x-1.1.js</a>.
 						
 						
 					</div>
@@ -434,7 +479,7 @@ ul.inheritsList
 						convert a Base64URL encoded string to a Base64 encoded string.<br/>Example: "ab-c3f_" &rarr; "ab+c3f/=="
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/base64x-1.0.js.html">base64x-1.0.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/base64x-1.1.js.html">base64x-1.1.js</a>.
 						
 						
 					</div>
@@ -480,7 +525,7 @@ ul.inheritsList
 						convert a Base64URL encoded string to a hexadecimal string.<br/>
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/base64x-1.0.js.html">base64x-1.0.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/base64x-1.1.js.html">base64x-1.1.js</a>.
 						
 						
 					</div>
@@ -526,7 +571,7 @@ ul.inheritsList
 						convert a Base64URL encoded string to a ASCII string.<br/>NOTE: This can't be used for Base64URL encoded non ASCII characters.
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/base64x-1.0.js.html">base64x-1.0.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/base64x-1.1.js.html">base64x-1.1.js</a>.
 						
 						
 					</div>
@@ -561,6 +606,58 @@ ul.inheritsList
 
 					<hr />
 				
+					<a name="b64utoutf8"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{String}</span>
+					<b>b64utoutf8</b>(s)
+					
+					</div>
+					<div class="description">
+						convert a Base64URL encoded string to a UTF-8 encoded string including CJK or Latin.<br/>
+						
+							<br />
+							<i>Defined in: </i> <a href="../symbols/src/base64x-1.1.js.html">base64x-1.1.js</a>.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>s</b>
+									
+								</dt>
+								<dd>Base64URL encoded string</dd>
+							
+							</dl>
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Since:</dt>
+								<dd>1.1</dd>
+							</dl>
+							</dl>
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String}</span> UTF-8 encoded string</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
 					<a name="BAtohex"> </a>
 					<div class="fixedFont">
 					
@@ -572,7 +669,7 @@ ul.inheritsList
 						convert an array of bytes(Number) to hexadecimal string.<br/>
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/base64x-1.0.js.html">base64x-1.0.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/base64x-1.1.js.html">base64x-1.1.js</a>.
 						
 						
 					</div>
@@ -618,7 +715,7 @@ ul.inheritsList
 						convert an array of character codes to a string
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/base64x-1.0.js.html">base64x-1.0.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/base64x-1.1.js.html">base64x-1.1.js</a>.
 						
 						
 					</div>
@@ -653,6 +750,58 @@ ul.inheritsList
 
 					<hr />
 				
+					<a name="encodeURIComponentAll"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{String}</span>
+					<b>encodeURIComponentAll</b>(s)
+					
+					</div>
+					<div class="description">
+						convert UTFa hexadecimal string to a URLComponent string such like "%67%68".<br/>
+						
+							<br />
+							<i>Defined in: </i> <a href="../symbols/src/base64x-1.1.js.html">base64x-1.1.js</a>.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>s</b>
+									
+								</dt>
+								<dd>hexadecimal string</dd>
+							
+							</dl>
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Since:</dt>
+								<dd>1.1</dd>
+							</dl>
+							</dl>
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String}</span> URIComponent string such like "%67%68"</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
 					<a name="hextob64u"> </a>
 					<div class="fixedFont">
 					
@@ -664,7 +813,7 @@ ul.inheritsList
 						convert a hexadecimal string to a Base64URL encoded string.<br/>
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/base64x-1.0.js.html">base64x-1.0.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/base64x-1.1.js.html">base64x-1.1.js</a>.
 						
 						
 					</div>
@@ -699,6 +848,58 @@ ul.inheritsList
 
 					<hr />
 				
+					<a name="hextouricmp"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{String}</span>
+					<b>hextouricmp</b>(s)
+					
+					</div>
+					<div class="description">
+						convert a hexadecimal string to a URLComponent string such like "%67%68".<br/>
+						
+							<br />
+							<i>Defined in: </i> <a href="../symbols/src/base64x-1.1.js.html">base64x-1.1.js</a>.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>s</b>
+									
+								</dt>
+								<dd>hexadecimal string</dd>
+							
+							</dl>
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Since:</dt>
+								<dd>1.1</dd>
+							</dl>
+							</dl>
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String}</span> URIComponent string such like "%67%68"</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
 					<a name="newline_toDos"> </a>
 					<div class="fixedFont">
 					
@@ -710,7 +911,7 @@ ul.inheritsList
 						convert all UNIX new line("\r\n") to DOS new line("\n") in a String "s".
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/base64x-1.0.js.html">base64x-1.0.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/base64x-1.1.js.html">base64x-1.1.js</a>.
 						
 						
 					</div>
@@ -756,7 +957,7 @@ ul.inheritsList
 						convert all DOS new line("\r\n") to UNIX new line("\n") in a String "s".
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/base64x-1.0.js.html">base64x-1.0.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/base64x-1.1.js.html">base64x-1.1.js</a>.
 						
 						
 					</div>
@@ -802,7 +1003,7 @@ ul.inheritsList
 						convert a ASCII string to a Base64 encoded string.<br/>NOTE: This can't be used for non ASCII characters.
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/base64x-1.0.js.html">base64x-1.0.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/base64x-1.1.js.html">base64x-1.1.js</a>.
 						
 						
 					</div>
@@ -848,7 +1049,7 @@ ul.inheritsList
 						convert a ASCII string to a Base64URL encoded string.<br/>NOTE: This can't be used for non ASCII characters.
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/base64x-1.0.js.html">base64x-1.0.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/base64x-1.1.js.html">base64x-1.1.js</a>.
 						
 						
 					</div>
@@ -894,7 +1095,7 @@ ul.inheritsList
 						convert a string to an array of character codes
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/base64x-1.0.js.html">base64x-1.0.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/base64x-1.1.js.html">base64x-1.1.js</a>.
 						
 						
 					</div>
@@ -940,7 +1141,7 @@ ul.inheritsList
 						convert a ASCII string to a hexadecimal string of ASCII codes.<br/>NOTE: This can't be used for non ASCII characters.
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/base64x-1.0.js.html">base64x-1.0.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/base64x-1.1.js.html">base64x-1.1.js</a>.
 						
 						
 					</div>
@@ -973,6 +1174,110 @@ ul.inheritsList
 						
 						
 
+					<hr />
+				
+					<a name="uricmptohex"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{String}</span>
+					<b>uricmptohex</b>(s)
+					
+					</div>
+					<div class="description">
+						convert a URLComponent string such like "%67%68" to a hexadecimal string.<br/>
+						
+							<br />
+							<i>Defined in: </i> <a href="../symbols/src/base64x-1.1.js.html">base64x-1.1.js</a>.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>s</b>
+									
+								</dt>
+								<dd>URIComponent string such like "%67%68"</dd>
+							
+							</dl>
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Since:</dt>
+								<dd>1.1</dd>
+							</dl>
+							</dl>
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String}</span> hexadecimal string</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="utf8tob64u"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{String}</span>
+					<b>utf8tob64u</b>(s)
+					
+					</div>
+					<div class="description">
+						convert a UTF-8 encoded string including CJK or Latin to a Base64URL encoded string.<br/>
+						
+							<br />
+							<i>Defined in: </i> <a href="../symbols/src/base64x-1.1.js.html">base64x-1.1.js</a>.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>s</b>
+									
+								</dt>
+								<dd>UTF-8 encoded string</dd>
+							
+							</dl>
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Since:</dt>
+								<dd>1.1</dd>
+							</dl>
+							</dl>
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String}</span> Base64URL encoded string</dd>
+							
+							</dl>
+						
+						
+						
+
 					
 				
 			
@@ -988,7 +1293,7 @@ ul.inheritsList
 		<div class="fineprint" style="clear:both">
                         &copy; 2012 Kenji Urushima, All rights reserved<br/>
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Sun May 06 2012 09:49:43 GMT+0900 (JST)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Mon May 07 2012 21:26:55 GMT+0900 (JST)
 		</div>
 	</body>
 </html>

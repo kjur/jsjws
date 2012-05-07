@@ -212,14 +212,14 @@ ul.inheritsList
 <!-- ============================== class summary ========================== -->			
 			<p class="description">
 				<br />Version
-					1.0.1 (06 May 2012).<br />
+					1.1 (07 May 2012).<br />
 				
 				
 			
 				JSON Web Signature(JWS) class
 				
 				
-					<br /><i>Defined in: </i> <a href="../symbols/src/jws-1.0.js.html">jws-1.0.js</a>.
+					<br /><i>Defined in: </i> <a href="../symbols/src/jws-1.1.js.html">jws-1.1.js</a>.
 				
 			</p>
 
@@ -325,6 +325,16 @@ ul.inheritsList
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
+								<b><a href="../symbols/JWS.html#parsedJWS_sigvalBI">parsedJWS_sigvalBI</a></b>
+								</div>
+								<div class="description">BigInteger(defined in jsbn.js) object of JWS signature value</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
 								<b><a href="../symbols/JWS.html#parsedJWS_sigvalH">parsedJWS_sigvalH</a></b>
 								</div>
 								<div class="description">hexadecimal string of JWS signature value</div>
@@ -353,11 +363,20 @@ ul.inheritsList
 					<tbody>
 					
 						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">JWS.<b><a href="../symbols/JWS.html#.generateJWSByNED">generateJWSByNED</a></b>(sHead, sPayload, hN, hE, hD)
+								<div class="fixedFont"><b><a href="../symbols/JWS.html#generateJWSByNED">generateJWSByNED</a></b>(sHead, sPayload, hN, hE, hD)
 								</div>
 								<div class="description">generate JWS signature by Header, Payload and a RSA private key.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/JWS.html#generateJWSByP1PrvKey">generateJWSByP1PrvKey</a></b>(sHead, sPayload, string)
+								</div>
+								<div class="description">generate JWS signature by Header, Payload and a PEM formatted PKCS#1 RSA private key.</div>
 							</td>
 						</tr>
 					
@@ -380,11 +399,29 @@ ul.inheritsList
 						</tr>
 					
 						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">JWS.<b><a href="../symbols/JWS.html#.verifyJWSByNE">verifyJWSByNE</a></b>(sJWS, hN, hE)
+								<div class="fixedFont"><b><a href="../symbols/JWS.html#parseJWS">parseJWS</a></b>(sJWS)
 								</div>
-								<div class="description">verify JWS signature by RSA public key.</div>
+								<div class="description">parse JWS string and set public property 'parsedJWS' dictionary.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/JWS.html#verifyJWSByNE">verifyJWSByNE</a></b>(sJWS, hN, hE)
+								</div>
+								<div class="description">verify JWS signature with naked RSA public key.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/JWS.html#verifyJWSByPemX509Cert">verifyJWSByPemX509Cert</a></b>(sJWS, sPemX509Cert)
+								</div>
+								<div class="description">verify JWS signature by PEM formatted X.509 certificate.</div>
 							</td>
 						</tr>
 					
@@ -581,6 +618,28 @@ ul.inheritsList
 
 					<hr />
 				
+					<a name="parsedJWS_sigvalBI"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{String}</span>
+					<b>parsedJWS_sigvalBI</b>
+					
+					</div>
+					<div class="description">
+						BigInteger(defined in jsbn.js) object of JWS signature value
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
 					<a name="parsedJWS_sigvalH"> </a>
 					<div class="fixedFont">
 					
@@ -611,11 +670,11 @@ ul.inheritsList
 					Method Detail
 				</div>
 				
-					<a name=".generateJWSByNED"> </a>
-					<div class="fixedFont">&lt;static&gt; 
+					<a name="generateJWSByNED"> </a>
+					<div class="fixedFont">
 					
 					<span class="light">{String}</span>
-					<span class="light">JWS.</span><b>generateJWSByNED</b>(sHead, sPayload, hN, hE, hD)
+					<b>generateJWSByNED</b>(sHead, sPayload, hN, hE, hD)
 					
 					</div>
 					<div class="description">
@@ -663,6 +722,82 @@ ul.inheritsList
 							</dl>
 						
 						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Throws:</dt>
+							
+								<dt>
+									 <b></b>
+								</dt>
+								<dd>if sHead is a malformed JSON string.</dd>
+							
+								<dt>
+									 <b></b>
+								</dt>
+								<dd>if supported signature algorithm was not specified in JSON Header.</dd>
+							
+							</dl>
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String}</span> JWS signature string</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="generateJWSByP1PrvKey"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{String}</span>
+					<b>generateJWSByP1PrvKey</b>(sHead, sPayload, string)
+					
+					</div>
+					<div class="description">
+						generate JWS signature by Header, Payload and a PEM formatted PKCS#1 RSA private key.<br/>This only supports "RS256" and "RS512" algorithm.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>sHead</b>
+									
+								</dt>
+								<dd>string of JWS Header</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>sPayload</b>
+									
+								</dt>
+								<dd>string of JWS Payload</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>string</b>
+									
+								</dt>
+								<dd>for sPemPrvKey PEM formatted PKCS#1 RSA private key<br/>                Heading and trailing space characters in PEM key will be ignored.</dd>
+							
+							</dl>
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Since:</dt>
+								<dd>1.1</dd>
+							</dl>
+							</dl>
 						
 						
 							<dl class="detailList">
@@ -789,15 +924,72 @@ ul.inheritsList
 
 					<hr />
 				
-					<a name=".verifyJWSByNE"> </a>
-					<div class="fixedFont">&lt;static&gt; 
+					<a name="parseJWS"> </a>
+					<div class="fixedFont">
 					
-					<span class="light">{String}</span>
-					<span class="light">JWS.</span><b>verifyJWSByNE</b>(sJWS, hN, hE)
+					
+					<b>parseJWS</b>(sJWS)
 					
 					</div>
 					<div class="description">
-						verify JWS signature by RSA public key.<br/>This only supports "RS256" and "RS512" algorithm.
+						parse JWS string and set public property 'parsedJWS' dictionary.<br/>
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>sJWS</b>
+									
+								</dt>
+								<dd>JWS signature string to be parsed.</dd>
+							
+							</dl>
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Since:</dt>
+								<dd>1.1</dd>
+							</dl>
+							</dl>
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Throws:</dt>
+							
+								<dt>
+									 <b></b>
+								</dt>
+								<dd>if sJWS is not comma separated string such like "Header.Payload.Signature".</dd>
+							
+								<dt>
+									 <b></b>
+								</dt>
+								<dd>if JWS Header is a malformed JSON string.</dd>
+							
+							</dl>
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="verifyJWSByNE"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{String}</span>
+					<b>verifyJWSByNE</b>(sJWS, hN, hE)
+					
+					</div>
+					<div class="description">
+						verify JWS signature with naked RSA public key.<br/>This only supports "RS256" and "RS512" algorithm.
 						
 						
 					</div>
@@ -857,6 +1049,76 @@ ul.inheritsList
 						
 						
 
+					<hr />
+				
+					<a name="verifyJWSByPemX509Cert"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{String}</span>
+					<b>verifyJWSByPemX509Cert</b>(sJWS, sPemX509Cert)
+					
+					</div>
+					<div class="description">
+						verify JWS signature by PEM formatted X.509 certificate.<br/>This only supports "RS256" and "RS512" algorithm.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>sJWS</b>
+									
+								</dt>
+								<dd>JWS signature string to be verified</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>sPemX509Cert</b>
+									
+								</dt>
+								<dd>string of PEM formatted X.509 certificate</dd>
+							
+							</dl>
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Since:</dt>
+								<dd>1.1</dd>
+							</dl>
+							</dl>
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Throws:</dt>
+							
+								<dt>
+									 <b></b>
+								</dt>
+								<dd>if sJWS is not comma separated string such like "Header.Payload.Signature".</dd>
+							
+								<dt>
+									 <b></b>
+								</dt>
+								<dd>if JWS Header is a malformed JSON string.</dd>
+							
+							</dl>
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{String}</span> returns 1 when JWS signature is valid, otherwise returns 0</dd>
+							
+							</dl>
+						
+						
+						
+
 					
 				
 			
@@ -872,7 +1134,7 @@ ul.inheritsList
 		<div class="fineprint" style="clear:both">
                         &copy; 2012 Kenji Urushima, All rights reserved<br/>
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Sun May 06 2012 09:49:43 GMT+0900 (JST)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Mon May 07 2012 21:26:55 GMT+0900 (JST)
 		</div>
 	</body>
 </html>

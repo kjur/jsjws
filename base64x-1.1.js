@@ -1,9 +1,9 @@
-/*! base64x-1.0 (c) 2012 Kenji Urushima | kjur.github.com/jsjws/license
+/*! base64x-1.1 (c) 2012 Kenji Urushima | kjur.github.com/jsjws/license
  */
 /*
  * base64x.js - Base64url and supplementary functions for Tom Wu's base64.js library
  *
- * version: 1.0.1 (06 May 2012)
+ * version: 1.1 (07 May 2012)
  *
  * Copyright (c) 2012 Kenji Urushima (kenji.urushima@gmail.com)
  *
@@ -24,8 +24,10 @@
  * global functions for converting following data each other.
  * <ul>
  * <li>(ASCII) String</li>
+ * <li>UTF8 String including CJK, Latin and other characters</li>
  * <li>byte array</li>
  * <li>hexadecimal encoded String</li>
+ * <li>Full URIComponent encoded String (such like "%69%94")</li>
  * <li>Base64 encoded String</li>
  * <li>Base64URL encoded String</li>
  * </ul>
@@ -34,7 +36,7 @@
  * 
  * @class Base64URL and supplementary functions for Tom Wu's base64.js library
  * @author Kenji Urushima
- * @version 1.0.1 (06 May 2012)
+ * @version 1.1 (07 May 2012)
  * @requires base64.js
  * @see <a href="http://kjur.github.com/jsjws/">'jwjws'(JWS JavaScript Library) home page http://kjur.github.com/jsjws/</a>
  * @see <a href="http://kjur.github.com/jsrsasigns/">'jwrsasign'(RSA Sign JavaScript Library) home page http://kjur.github.com/jsrsasign/</a>
@@ -173,6 +175,69 @@ function hextob64u(s) {
  */
 function b64utohex(s) {
     return b64tohex(b64utob64(s));
+}
+
+// ==== utf8 / base64url ================================
+/**
+ * convert a UTF-8 encoded string including CJK or Latin to a Base64URL encoded string.<br/>
+ * @param {String} s UTF-8 encoded string
+ * @return {String} Base64URL encoded string
+ * @since 1.1
+ */
+function utf8tob64u(s) {
+  return hextob64u(uricmptohex(encodeURIComponentAll(s)));
+}
+
+/**
+ * convert a Base64URL encoded string to a UTF-8 encoded string including CJK or Latin.<br/>
+ * @param {String} s Base64URL encoded string
+ * @return {String} UTF-8 encoded string
+ * @since 1.1
+ */
+function b64utoutf8(s) {
+  return decodeURIComponent(hextouricmp(b64utohex(s)));
+}
+
+// ==== URIComponent / hex ================================
+/**
+ * convert a URLComponent string such like "%67%68" to a hexadecimal string.<br/>
+ * @param {String} s URIComponent string such like "%67%68"
+ * @return {String} hexadecimal string
+ * @since 1.1
+ */
+function uricmptohex(s) {
+  return s.replace(/%/g, "");
+}
+
+/**
+ * convert a hexadecimal string to a URLComponent string such like "%67%68".<br/>
+ * @param {String} s hexadecimal string
+ * @return {String} URIComponent string such like "%67%68"
+ * @since 1.1
+ */
+function hextouricmp(s) {
+  return s.replace(/(..)/g, "%$1");
+}
+
+// ==== URIComponent ================================
+/**
+ * convert UTFa hexadecimal string to a URLComponent string such like "%67%68".<br/>
+ * @param {String} s hexadecimal string
+ * @return {String} URIComponent string such like "%67%68"
+ * @since 1.1
+ */
+function encodeURIComponentAll(u8) {
+  var s = encodeURIComponent(u8);
+  var s2 = "";
+  for (var i = 0; i < s.length; i++) {
+    if (s[i] == "%") {
+      s2 = s2 + s.substr(i, 3);
+      i = i + 2;
+    } else {
+      s2 = s2 + "%" + stohex(s[i]);
+    }
+  }
+  return s2;
 }
 
 // ==== new lines ================================

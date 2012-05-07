@@ -5,9 +5,7 @@
     <meta charset='utf-8' />
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
     <meta name="description" content="jsjws : pure JavaScript implementation of JSON Web Signature" />
-
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
     <title>jsjws</title>
   </head>
 
@@ -45,16 +43,28 @@ implementation of it.
 
 <h3>NEWS</h3>
 <dl>
+<dt><b>2012-May-07</b>: 
+<dd>Release 1.1 is now available. Following features is added.
+<ul>
+<li>UTF-8 string support in JWS Header and Payload</li>
+<li>sign JWS with PEM formatted PKCS# RSA private key without passcode</li>
+<li>verify JWS with PEM formatted X.509 certificate</li>
+</ul>
 <dt><b>2012-May-06</b>: 
 <dd>Release 1.0.1 is now available. API document is added.<br/>
-<dt><b>2012-May-04</b>: 
-<dd>Release 1.0 is now available.
 </dl>
+
+<h3>ONLINE TOOL</h3>
+<ul>
+<li><a href="tool_verifyanalyze.html" target="_blank">Online JWS verifier/analyzer</a></li>
+</ul>
 
 <h3>DEMO</h3>
 <ul>
-<li><a href="sample_generate.html" target="_blank">Sample Application for JWS signature generation</a></li>
-<li><a href="sample_verify.html" target="_blank">Sample Application for JWS signature validation</a></li>
+<li><a href="sample_generate.html" target="_blank">sign JWS with naked private key</a></li>
+<li><a href="sample_verify.html" target="_blank">verify JWS with naked public key</a></li>
+<li><a href="sample_generate2.html" target="_blank">sign JWS with PKCS#1 private key</a></li>
+<li><a href="sample_verify2.html" target="_blank">verify JWS with X.509 certificate</a></li>
 </ul>
 
 <h3>LIBRARY FEATURES</h3>
@@ -63,11 +73,13 @@ implementation of it.
 <li>implemented by pure JavaScript</li>
 <li>'jsjws' will work on any modern browsers including smart phones</li>
 <li>'jsjws' supports 'RS256' and 'RS512' signature algorithms</li>
-<li>'jsjws' supports only ASCII characters in JWS Header and Payload</li>
+<li>'jsjws' can be used with naked key, X.509 certificate and PKCS#1 private key</li>
+<li>'jsjws' supports UTF-8 characters including CJK, Latin and non-ASCII in JWS Header and Payload</li>
 </ul>
 
 <h3>DOWNLOAD</h3>
 <ul>
+<li><a href="jsjws-1.1.tgz">Release 1.1 (jsjws-1.1.tgz)</a>: May 07, 2012 - UTF-8, X.509 certificate and PKCS#1 private key support</li>
 <li><a href="jsjws-1.0.1.tgz">Release 1.0.1 (jsjws-1.0.1.tgz)</a>: May 06, 2012 - API document added</li>
 <li><a href="jsjws-1.0.tgz">Release 1.0 (jsjws-1.0.tgz)</a>: May 04, 2012 - First release</li>
 </ul>
