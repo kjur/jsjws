@@ -1,6 +1,11 @@
 
 ChangeLog for jsjws
 
+* 1.2 Release [Mar 19, 2012]
+ - 'JWSJS' class is now available for JSON Web Signature JSON Serialization (JWS-JS)
+   which is a kind of parallel signature.
+ - 'readSafeJSONString' method added to 'JWS' class.
+
 * 1.1 Relasse [Mar 07, 2012]
  - following features are added.
    - UTF-8 string support in JWS Header and Payload
