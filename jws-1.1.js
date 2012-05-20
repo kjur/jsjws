@@ -3,7 +3,7 @@
 /*
  * jws.js - JSON Web Signature Class
  *
- * version: 1.1 (07 May 2012)
+ * version: 1.1.1 (19 May 2012)
  *
  * Copyright (c) 2010-2012 Kenji Urushima (kenji.urushima@gmail.com)
  *
@@ -169,10 +169,16 @@ function _jws_generateJWSByNED(sHead, sPayload, hN, hE, hD) {
     var sSI = _getSignatureInputByString(sHead, sPayload);
     var hSigValue = _jws_generateSignatureValueBySI_NED(sHead, sPayload, sSI, hN, hE, hD);
     var b64SigValue = hextob64u(hSigValue);
+
+    this.parsedJWS = {};
+    this.parsedJWS.headB64U = sSI.split(".")[0];
+    this.parsedJWS.payloadB64U = sSI.split(".")[1];
+    this.parsedJWS.sigvalB64U = b64SigValue;
+
     return sSI + "." + b64SigValue;
 }
 
-// === sign with PKCS#1 RSA private key =============================================================
+// === sign with PKCS#1 RSA private key =====================================================
 
 function _jws_generateSignatureValueBySI_PemPrvKey(sHead, sPayload, sSI, sPemPrvKey) {
     var rsa = new RSAKey();
@@ -202,6 +208,12 @@ function _jws_generateJWSByP1PrvKey(sHead, sPayload, sPemPrvKey) {
     var sSI = _getSignatureInputByString(sHead, sPayload);
     var hSigValue = _jws_generateSignatureValueBySI_PemPrvKey(sHead, sPayload, sSI, sPemPrvKey);
     var b64SigValue = hextob64u(hSigValue);
+
+    this.parsedJWS = {};
+    this.parsedJWS.headB64U = sSI.split(".")[0];
+    this.parsedJWS.payloadB64U = sSI.split(".")[1];
+    this.parsedJWS.sigvalB64U = b64SigValue;
+
     return sSI + "." + b64SigValue;
 }
 
@@ -229,10 +241,34 @@ function _jws_isSafeJSONString(s) {
   }
 }
 
+/**
+ * read a String "s" as JSON object if it is safe.<br/>
+ * If a String "s" is a malformed JSON string or not JSON string,
+ * this returns null, otherwise returns JSON object.
+ * @name readSafeJSONString
+ * @memberOf JWS
+ * @function
+ * @param {String} s JSON string
+ * @return {Object} JSON object or null
+ * @since 1.1.1
+ */
+function _jws_readSafeJSONString(s) {
+  var o = null;
+  try {
+    o = jsonParse(s);
+    if (typeof o != "object") return null;
+    if (o.constructor === Array) return null;
+    return o;
+  } catch (ex) {
+    return null;
+  }
+}
+
 // === class definition =============================================================
 
 /**
  * JSON Web Signature(JWS) class.<br/>
+ * @class JSON Web Signature(JWS) class
  * @property {Dictionary} parsedJWS This property is set after JWS signature verification. <br/>
  *           Following "parsedJWS_*" properties can be accessed as "parsedJWS.*" because of
  *           JsDoc restriction.
@@ -244,7 +280,6 @@ function _jws_isSafeJSONString(s) {
  * @property {String} parsedJWS_sigvalBI BigInteger(defined in jsbn.js) object of JWS signature value
  * @property {String} parsedJWS_headS string of decoded JWS Header
  * @property {String} parsedJWS_headS string of decoded JWS Payload
- * @class JSON Web Signature(JWS) class
  * @author Kenji Urushima
  * @version 1.1 (07 May 2012)
  * @requires base64x.js, json-sans-eval.js and jsrsasign library
@@ -256,6 +291,7 @@ function JWS() {
 
 // utility
 JWS.prototype.isSafeJSONString = _jws_isSafeJSONString;
+JWS.prototype.readSafeJSONString = _jws_readSafeJSONString;
 JWS.prototype.getEncodedSignatureValueFromJWS = _jws_getEncodedSignatureValueFromJWS;
 JWS.prototype.parseJWS = _jws_parseJWS;
 

@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Sample JWS Signing With PKCS#1 private key</title>
+<title>Sample JWS-JS generator with existing JWS</title>
 <script language="JavaScript" type="text/javascript" src="json-sans-eval.js"></script>
 
 <script language="JavaScript" type="text/javascript" src="sha256.js"></script>
@@ -19,46 +19,55 @@
 
 <script language="JavaScript" type="text/javascript" src="base64x-1.1.js"></script>
 <script language="JavaScript" type="text/javascript" src="jws-1.1.js"></script>
+<script language="JavaScript" type="text/javascript" src="jwsjs-1.0.js"></script>
 <style type="text/css">
 TD  {vertical-align: top; border: solid 1px #000000; }
 </style>
 <script language="JavaScript" type="text/javascript">
-function _genJWS() {
-  var sHead = newline_toDos(document.form1.jwshead1.value);
-  var sPayload = newline_toDos(document.form1.jwspayload1.value);
-  var sPemPrvKey = document.form1.pemprvkey1.value;
+var jwsjs = null;
 
-  var jws = new JWS();
-  var sResult = null;
-  try {
-    sResult = jws.generateJWSByP1PrvKey(sHead, sPayload, sPemPrvKey);
-    document.form1.jwsgenerated1.value = sResult;
-  } catch (ex) {
-    alert("Error: " + ex);
+function doGenerate() {
+  var sJWS = document.form1.jws1.value;
+
+  jwsjs = new JWSJS();
+  jwsjs.initWithJWS(sJWS);
+  alert(JSON.stringify(jwsjs.getJSON(), null, 2));
+}
+
+function addSignature() {
+  if (jwsjs == null) {
+    alert("Please read first signature");
+    return;
   }
+  var sHeader = newline_toDos(document.form1.jwshead1.value);
+  var sPrvKey = document.form1.pemprvkey1.value;
+  
+  jwsjs.addSignatureByHeaderKey(sHeader, sPrvKey);
+  document.form1.jwsjs1.value = newline_toDos(JSON.stringify(jwsjs.getJSON(), null, 2));
 }
 </script>
 </head>
 
 <body>
-<h1>Sample JWS Signing Application</h1>
-
-<p>
-Default values are cited from <a href="http://tools.ietf.org/html/draft-jones-json-web-signature-04#appendix-A.2" target="_blank">
-"draft-jones-json-web-signature-04 Annex.2"</a>.
-</p>
 
 <form name="form1">
-<table width="100%">
-<tbody>
-<tr><td rowspan="3">Input</td><td>JWS Header</td><td colspan="2">
-<textarea name="jwshead1" rows="3" cols="100">{"alg":"RS256"}</textarea></td></tr>
-<tr><td>JWS Payload</td><td colspan="2">
-<textarea name="jwspayload1" rows="3" cols="100">{"iss":"joe",
- "exp":1300819380,
- "http://example.com/is_root":true}</textarea>
-</td></tr>
-<tr><td>Signing PKCS#1 RSA Private Key</td><td colspan="2">
+<h1>Sample JWS-JS generator with existing JWS</h1>
+
+<h3>(STEP1) specify existing JWS signature to add to JWS-JS first time</h3>
+<textarea name="jws1" rows="8" cols="100">eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ.qCW4l5nfdvBt-yl_OiYRFrKkribqbDbmQ9ULyemAgCNXAAr70hN5-IERIefzySpm6Er4UuX_aXcnIXgMvK-hFMFhLOuJckrDEe1Pz-OzqScvGSJUbeOsd_nB9E2BNVYZrgMESQOifiEyUtWdbzCoMgf9nQg2AEWbVSaPImqQkGp-JZsJsvMUC-3A3RcimGIjLv-A8skyhNufASd6DPgk46Ydqt6vi2L6d2InvZSkhTSsYhbfm9TgrKyA906YHE0zE-asuXAzI1ISPxAjlO8ZhekEvg6teaa-1cSQQdOFj-ZWpqVsEI1YXr7zuvugWQhqfBqqPcT6fP5t3ff8FKwV9w</textarea>
+
+<h3>(STEP2) Generate first JWS-JS with existing JWS</h3>
+<input type="button" value="Generate first time" onClick="doGenerate();"/><br/>
+
+<h3>(STEP3) Append signatures</h3>
+
+<p>
+<b><i>adding JWS Header</i></b><br/>
+<textarea name="jwshead1" rows="3" cols="100">{"alg":"RS256"}</textarea><br/>
+</p>
+
+<p>
+<b><i>signing private key</i></b><br/>
 <textarea name="pemprvkey1" rows="10" cols="65">-----BEGIN RSA PRIVATE KEY-----
 MIIEogIBAAKCAQEA4qiw8PWs7PpnnC2BUEoDRcwXF8pq8XT1/3Hc3cuUJwX/otNe
 fr/Bomr3dtM0ERLN3DrepCXvuzEU5FcJVDUB3sI+pFtjjLBXD/zJmuL3Afg91J9p
@@ -86,25 +95,17 @@ kp+AgfXpg8an4ujAUP7mu8xaxns7zsNzr+BCgYwXmIlhWz2Aiz2UeL/IsfOpRwuV
 T4mvpSeYDJkBD8Hxr3fB1YNDWNbgwrNPGZnUTBNhxIsNLPnV8WySiW57LqVXlggH
 vjFmyDdU5Hh6ma4q+BeAqbXZSJz0cfkBcBLCSe2gIJ/QJ3YJVQI=
 -----END RSA PRIVATE KEY-----</textarea>
-</td></tr>
-<tr><td colspan="4">
-<input type="button" value="Generate JWS Signature&darr;" onClick="_genJWS();"/>
-</td></tr>
-<tr><td colspan="2">Output JWS Signature</td><td colspan="2">
-<textarea name="jwsgenerated1" cols="100" rows="6" readonly></textarea>
-</td></tr>
-</tbody>
-</table>
+<br/>
+<input type="button" value="Append Signature" onClick="addSignature();"/><br/>
+</p>
+<p><i>
+NOTE: You can modify 'JWS Header' and 'signing private key' and push 'Add Signature' one or
+more time to generate multiple parallel JWS-JS signature.
+</i></p>
 
+<h2>Result of JWS-JS</h2>
+<textarea name="jwsjs1" rows="100" cols="65"></textarea>
 </form>
-<h3>USAGE</h3>
-<ol>
-<li>Just press "Generate JWS Signature" button.</li>
-<li>You can specify signature algorithm name such es "RS256"(SHA256withRSA) or "RS512"(SHA512withRSA). 
-If it isn't un-supported value, it will raise an error.</li>
-<li>If malformed JWS Head is specified, it will raise an error.</li>
-<li>As for JWS signature verification, please see <a href="sample_verify2.html">this sample</a>.</li>
-</ol>
 
 <center>
 Copyright &copy; 2012 Kenji Urushima, All Rights Reserved.

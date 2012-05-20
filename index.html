@@ -17,7 +17,7 @@
           <a id="forkme_banner" href="https://github.com/kjur/jsjws">View on GitHub</a>
 
           <h1 id="project_title">jsjws</h1>
-          <h2 id="project_tagline">pure JavaScript implementation of JSON Web Signature</h2>
+          <h2 id="project_tagline">pure JavaScript implementation of JSON Web Signature and JWS-JS</h2>
 
             <section id="downloads">
               <a class="zip_download_link" href="https://github.com/kjur/jsjws/zipball/master">Download this project as a .zip file</a>
@@ -40,23 +40,28 @@ and <a href="http://openid.net/2011/04/29/a-map-for-openid-abc/" target="_blank"
 basic component for OpenID ABC or OpenID Connect</a>.
 The 'jsjws'(JSON Web Signature JavaScript Library) is a pure open source free JavaScript 
 implementation of it.
+Furthermore, 'jsjws' provides JSON Web Signature JSON Serialization (JWS-JS) 
+<a href="http://tools.ietf.org/html/draft-jones-json-web-signature-json-serialization-01" target="_blank">[3]</a>
+which is a kind of parallel or independent signature format by multiple signers.
 
 <h3>NEWS</h3>
 <dl>
+<dt><b>2012-May-21</b>: 
+<dd>Release 1.2 is now available to add JWS-JS parallel signature support.
 <dt><b>2012-May-07</b>: 
-<dd>Release 1.1 is now available. Following features are added.
+<dd>Release 1.1 is available. Following features are added.
 <ul>
 <li>UTF-8 string support in JWS Header and Payload</li>
 <li>sign JWS with PEM formatted PKCS# RSA private key without passcode</li>
 <li>verify JWS with PEM formatted X.509 certificate</li>
 </ul>
-<dt><b>2012-May-06</b>: 
-<dd>Release 1.0.1 is now available. API document is added.<br/>
 </dl>
 
 <h3>ONLINE TOOL</h3>
 <ul>
 <li><a href="tool_verifyanalyze.html" target="_blank">Online JWS verifier/analyzer</a></li>
+<li><a href="tool_b64uenc.html" target="_blank">Online Base64URL encoder</a></li>
+<li><a href="tool_b64udec.html" target="_blank">Online Base64URL decoder</a></li>
 </ul>
 
 <h3>DEMO</h3>
@@ -65,6 +70,9 @@ implementation of it.
 <li><a href="sample_verify.html" target="_blank">verify JWS with naked public key</a></li>
 <li><a href="sample_generate2.html" target="_blank">sign JWS with PKCS#1 private key</a></li>
 <li><a href="sample_verify2.html" target="_blank">verify JWS with X.509 certificate</a></li>
+<li><a href="sample_jwsjsgen1.html" target="_blank">generete JWS-JS</a></li>
+<li><a href="sample_jwsjsgen2.html" target="_blank">generete JWS-JS by existing JWS</a></li>
+<li><a href="sample_jwsjsveri1.html" target="_blank">verify JWS-JS</a></li>
 </ul>
 
 <h3>LIBRARY FEATURES</h3>
@@ -75,10 +83,12 @@ implementation of it.
 <li>'jsjws' supports 'RS256' and 'RS512' signature algorithms</li>
 <li>'jsjws' can be used with naked key, X.509 certificate and PKCS#1 private key</li>
 <li>'jsjws' supports UTF-8 characters including CJK, Latin and non-ASCII in JWS Header and Payload</li>
+<li>sign and verify a JSON Web Signature JSON Serialization (JWS-JS)</li>
 </ul>
 
 <h3>DOWNLOAD</h3>
 <ul>
+<li><a href="jsjws-1.2.tgz">Release 1.2 (jsjws-1.2.tgz)</a>: May 21, 2012 - JWS-JS support</li>
 <li><a href="jsjws-1.1.tgz">Release 1.1 (jsjws-1.1.tgz)</a>: May 07, 2012 - UTF-8, X.509 certificate and PKCS#1 private key support</li>
 <li><a href="jsjws-1.0.1.tgz">Release 1.0.1 (jsjws-1.0.1.tgz)</a>: May 06, 2012 - API document added</li>
 <li><a href="jsjws-1.0.tgz">Release 1.0 (jsjws-1.0.tgz)</a>: May 04, 2012 - First release</li>
@@ -136,11 +146,24 @@ Slides: Propposed Document for JOSE: JWS-JWE-JWK, Mike Jones, IETF 82, Nov 2011
 IETF Internet Draft: JSON Web Signature (JWS)                   
 draft-jones-json-web-signature-04</a> 
 </li>
-
 </ul>
 </p>
 
-
+<h3>WHAT IS JWS-JS?</h3>
+<p>
+JSON Web Signature JSON Serialization (JWS-JS) is a signature format to
+sign a data by a number of signers independently.
+This way of signing is called parallel or independent signature in general.
+Following figure shows how JWS-JS signature will be generated.
+<br clear="all"/>
+<img src="jwsjs_generate.png"/>
+<br clear="all"/>
+<ul>
+<li>
+<a href="http://tools.ietf.org/html/draft-jones-json-web-signature-json-serialization-01" target="_blank">IETF Internet Draft: JSON Web Signature JSON Serialization (JWS-JS)</a>
+</li>
+</ul>
+</p>
 
 <!-- now editing -->
 

@@ -3,7 +3,7 @@
 /*
  * base64x.js - Base64url and supplementary functions for Tom Wu's base64.js library
  *
- * version: 1.1 (07 May 2012)
+ * version: 1.1.1 (20 May 2012)
  *
  * Copyright (c) 2012 Kenji Urushima (kenji.urushima@gmail.com)
  *
@@ -198,6 +198,50 @@ function b64utoutf8(s) {
   return decodeURIComponent(hextouricmp(b64utohex(s)));
 }
 
+// ==== utf8 / base64url ================================
+/**
+ * convert a UTF-8 encoded string including CJK or Latin to a Base64 encoded string.<br/>
+ * @param {String} s UTF-8 encoded string
+ * @return {String} Base64 encoded string
+ * @since 1.1.1
+ */
+function utf8tob64(s) {
+  return hex2b64(uricmptohex(encodeURIComponentAll(s)));
+}
+
+/**
+ * convert a Base64 encoded string to a UTF-8 encoded string including CJK or Latin.<br/>
+ * @param {String} s Base64 encoded string
+ * @return {String} UTF-8 encoded string
+ * @since 1.1.1
+ */
+function b64toutf8(s) {
+  return decodeURIComponent(hextouricmp(b64tohex(s)));
+}
+
+// ==== utf8 / hex ================================
+/**
+ * convert a UTF-8 encoded string including CJK or Latin to a hexadecimal encoded string.<br/>
+ * @param {String} s UTF-8 encoded string
+ * @return {String} hexadecimal encoded string
+ * @since 1.1.1
+ */
+function utf8tohex(s) {
+  return uricmptohex(encodeURIComponentAll(s));
+}
+
+/**
+ * convert a hexadecimal encoded string to a UTF-8 encoded string including CJK or Latin.<br/>
+ * Note that when input is improper hexadecimal string as UTF-8 string, this function returns
+ * 'null'.
+ * @param {String} s hexadecimal encoded string
+ * @return {String} UTF-8 encoded string or null
+ * @since 1.1.1
+ */
+function hextoutf8(s) {
+  return decodeURIComponent(hextouricmp(s));
+}
+
 // ==== URIComponent / hex ================================
 /**
  * convert a URLComponent string such like "%67%68" to a hexadecimal string.<br/>
@@ -222,6 +266,10 @@ function hextouricmp(s) {
 // ==== URIComponent ================================
 /**
  * convert UTFa hexadecimal string to a URLComponent string such like "%67%68".<br/>
+ * Note that these "<code>0-9A-Za-z!'()*-._~</code>" characters will not
+ * converted to "%xx" format by builtin 'encodeURIComponent()' function.
+ * However this 'encodeURIComponentAll()' function will convert 
+ * all of characters into "%xx" format.
  * @param {String} s hexadecimal string
  * @return {String} URIComponent string such like "%67%68"
  * @since 1.1
