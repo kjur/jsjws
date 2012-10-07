@@ -74,7 +74,12 @@ function RSAKey() {
 
 // Set the public key fields N and e from hex strings
 function RSASetPublic(N,E) {
-  if(N != null && E != null && N.length > 0 && E.length > 0) {
+  if (typeof N !== "string")
+  {
+    this.n = N;
+    this.e = E;
+  }
+  else if(N != null && E != null && N.length > 0 && E.length > 0) {
     this.n = parseBigInt(N,16);
     this.e = parseInt(E,16);
   }

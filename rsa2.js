@@ -32,7 +32,13 @@ function pkcs1unpad2(d,n) {
 
 // Set the private key fields N, e, and d from hex strings
 function RSASetPrivate(N,E,D) {
-  if(N != null && E != null && N.length > 0 && E.length > 0) {
+  if (typeof N !== "string")
+  {
+    this.n = N;
+    this.e = E;
+    this.d = D;
+  }
+  else if(N != null && E != null && N.length > 0 && E.length > 0) {
     this.n = parseBigInt(N,16);
     this.e = parseInt(E,16);
     this.d = parseBigInt(D,16);
