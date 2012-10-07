@@ -57,6 +57,10 @@ function _jws_getEncodedSignatureValueFromJWS(sJWS) {
  * @since 1.1
  */
 function _jws_parseJWS(sJWS) {
+    if (this.parsedJWS !== undefined)
+    {
+        return;
+    }
     if (sJWS.match(/^([^.]+)\.([^.]+)\.([^.]+)$/) == null) {
 	throw "JWS signature is not a form of 'Head.Payload.SigValue'.";
     }
@@ -80,7 +84,7 @@ function _jws_parseJWS(sJWS) {
     this.parsedJWS.headS = sHead;
     this.parsedJWS.payloadS = sPayload;
 
-    if (! this.isSafeJSONString(sHead)) throw "malformed JSON string for JWS Head: " + sHead;
+    if (! this.isSafeJSONString(sHead, this.parsedJWS, 'headP')) throw "malformed JSON string for JWS Head: " + sHead;
 }
 
 /**
@@ -229,12 +233,13 @@ function _jws_generateJWSByP1PrvKey(sHead, sPayload, sPemPrvKey) {
  * @param {String} s JSON string
  * @return {Number} 1 or 0
  */
-function _jws_isSafeJSONString(s) {
+function _jws_isSafeJSONString(s, h, p) {
   var o = null;
   try {
     o = jsonParse(s);
     if (typeof o != "object") return 0;
     if (o.constructor === Array) return 0;
+    if (h) h[p] = o;
     return 1;
   } catch (ex) {
     return 0;
