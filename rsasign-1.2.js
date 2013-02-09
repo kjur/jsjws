@@ -90,11 +90,11 @@ function _rsasign_signString(s, hashAlg) {
 }
 
 function _rsasign_signStringWithSHA1(s) {
-  return _rsasign_signString(s, 'sha1');
+  return _rsasign_signString.call(this, s, 'sha1');
 }
 
 function _rsasign_signStringWithSHA256(s) {
-  return _rsasign_signString(s, 'sha256');
+  return _rsasign_signString.call(this, s, 'sha256');
 }
 
 // ========================================================================
