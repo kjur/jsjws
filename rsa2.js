@@ -30,6 +30,91 @@ function pkcs1unpad2(d,n) {
   return ret;
 }
 
+// PKCS#1 (OAEP) mask generation function
+function oaep_mgf1_str(seed, len)
+{
+    var mask = '', i = 0;
+
+    while (mask.length < len)
+    {
+        mask += rstr_sha1(seed + String.fromCharCode.apply(String, [
+                (i & 0xff000000) >> 24,
+                (i & 0x00ff0000) >> 16,
+                (i & 0x0000ff00) >> 8,
+                i & 0x000000ff]));
+        i += 1;
+    }
+
+    return mask;
+}
+
+var SHA1_SIZE = 20;
+
+// Undo PKCS#1 (OAEP) padding and, if valid, return the plaintext
+function oaep_unpad(d, n)
+{
+    d = d.toByteArray();
+
+    var i;
+
+    for (i = 0; i < d.length; i += 1)
+    {
+        d[i] &= 0xff;
+    }
+
+    while (d.length < n)
+    {
+        d.unshift(0);
+    }
+
+    d = String.fromCharCode.apply(String, d);
+
+    if (d.length < 2 * SHA1_SIZE + 2)
+    {
+        throw "Cipher too short";
+    }
+
+    var maskedSeed = d.substr(1, SHA1_SIZE)
+    var maskedDB = d.substr(SHA1_SIZE + 1);
+
+    var seedMask = oaep_mgf1_str(maskedDB, SHA1_SIZE);
+    var seed = [], i;
+
+    for (i = 0; i < maskedSeed.length; i += 1)
+    {
+        seed[i] = maskedSeed.charCodeAt(i) ^ seedMask.charCodeAt(i);
+    }
+
+    var dbMask = oaep_mgf1_str(String.fromCharCode.apply(String, seed),
+                           d.length - SHA1_SIZE);
+
+    var DB = [];
+
+    for (i = 0; i < maskedDB.length; i += 1)
+    {
+        DB[i] = maskedDB.charCodeAt(i) ^ dbMask.charCodeAt(i);
+    }
+
+    DB = String.fromCharCode.apply(String, DB);
+
+    if (DB.substr(0, SHA1_SIZE) !== rstr_sha1(''))
+    {
+        throw "Hash mismatch";
+    }
+
+    DB = DB.substr(SHA1_SIZE);
+
+    var first_one = DB.indexOf('\x01');
+    var last_zero = (first_one != -1) ? DB.substr(0, first_one).lastIndexOf('\x00') : -1;
+
+    if (last_zero + 1 != first_one)
+    {
+        throw "Malformed data";
+    }
+
+    return DB.substr(first_one + 1);
+}
+
 // Set the private key fields N, e, and d from hex strings
 function RSASetPrivate(N,E,D) {
   if (typeof N !== "string")
@@ -124,6 +209,15 @@ function RSADecrypt(ctext) {
   return pkcs1unpad2(m, (this.n.bitLength()+7)>>3);
 }
 
+// Return the PKCS#1 OAEP RSA decryption of "ctext".
+// "ctext" is an even-length hex string and the output is a plain string.
+function RSADecryptOAEP(ctext) {
+  var c = parseBigInt(ctext, 16);
+  var m = this.doPrivate(c);
+  if(m == null) return null;
+  return oaep_unpad(m, (this.n.bitLength()+7)>>3);
+}
+
 // Return the PKCS#1 RSA decryption of "ctext".
 // "ctext" is a Base64-encoded string and the output is a plain string.
 //function RSAB64Decrypt(ctext) {
@@ -139,4 +233,5 @@ RSAKey.prototype.setPrivate = RSASetPrivate;
 RSAKey.prototype.setPrivateEx = RSASetPrivateEx;
 RSAKey.prototype.generate = RSAGenerate;
 RSAKey.prototype.decrypt = RSADecrypt;
+RSAKey.prototype.decryptOAEP = RSADecryptOAEP;
 //RSAKey.prototype.b64_decrypt = RSAB64Decrypt;
