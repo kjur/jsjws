@@ -61,13 +61,13 @@ function pkcs1pad2(s,n) {
 }
 
 // PKCS#1 (OAEP) mask generation function
-function oaep_mgf1_arr(seed, len)
+function oaep_mgf1_arr(seed, len, hash)
 {
     var mask = '', i = 0;
 
     while (mask.length < len)
     {
-        mask += rstr_sha1(String.fromCharCode.apply(String, seed.concat([
+        mask += hash(String.fromCharCode.apply(String, seed.concat([
                 (i & 0xff000000) >> 24,
                 (i & 0x00ff0000) >> 16,
                 (i & 0x0000ff00) >> 8,
@@ -81,7 +81,7 @@ function oaep_mgf1_arr(seed, len)
 var SHA1_SIZE = 20;
 
 // PKCS#1 (OAEP) pad input string s to n bytes, and return a bigint
-function oaep_pad(s, n)
+function oaep_pad(s, n, hash)
 {
     if (s.length + 2 * SHA1_SIZE + 2 > n)
     {
@@ -99,7 +99,7 @@ function oaep_pad(s, n)
     var seed = new Array(SHA1_SIZE);
     new SecureRandom().nextBytes(seed);
     
-    var dbMask = oaep_mgf1_arr(seed, DB.length);
+    var dbMask = oaep_mgf1_arr(seed, DB.length, hash || rstr_sha1);
     var maskedDB = [];
 
     for (i = 0; i < DB.length; i += 1)
@@ -107,7 +107,7 @@ function oaep_pad(s, n)
         maskedDB[i] = DB.charCodeAt(i) ^ dbMask.charCodeAt(i);
     }
 
-    var seedMask = oaep_mgf1_arr(maskedDB, seed.length);
+    var seedMask = oaep_mgf1_arr(maskedDB, seed.length, rstr_sha1);
     var maskedSeed = [0];
 
     for (i = 0; i < seed.length; i += 1)
@@ -161,8 +161,8 @@ function RSAEncrypt(text) {
 }
 
 // Return the PKCS#1 OAEP RSA encryption of "text" as an even-length hex string
-function RSAEncryptOAEP(text) {
-  var m = oaep_pad(text,(this.n.bitLength()+7)>>3);
+function RSAEncryptOAEP(text, hash) {
+  var m = oaep_pad(text, (this.n.bitLength()+7)>>3, hash);
   if(m == null) return null;
   var c = this.doPublic(m);
   if(c == null) return null;

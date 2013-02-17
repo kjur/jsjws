@@ -31,13 +31,13 @@ function pkcs1unpad2(d,n) {
 }
 
 // PKCS#1 (OAEP) mask generation function
-function oaep_mgf1_str(seed, len)
+function oaep_mgf1_str(seed, len, hash)
 {
     var mask = '', i = 0;
 
     while (mask.length < len)
     {
-        mask += rstr_sha1(seed + String.fromCharCode.apply(String, [
+        mask += hash(seed + String.fromCharCode.apply(String, [
                 (i & 0xff000000) >> 24,
                 (i & 0x00ff0000) >> 16,
                 (i & 0x0000ff00) >> 8,
@@ -51,7 +51,7 @@ function oaep_mgf1_str(seed, len)
 var SHA1_SIZE = 20;
 
 // Undo PKCS#1 (OAEP) padding and, if valid, return the plaintext
-function oaep_unpad(d, n)
+function oaep_unpad(d, n, hash)
 {
     d = d.toByteArray();
 
@@ -77,7 +77,7 @@ function oaep_unpad(d, n)
     var maskedSeed = d.substr(1, SHA1_SIZE)
     var maskedDB = d.substr(SHA1_SIZE + 1);
 
-    var seedMask = oaep_mgf1_str(maskedDB, SHA1_SIZE);
+    var seedMask = oaep_mgf1_str(maskedDB, SHA1_SIZE, hash || rstr_sha1);
     var seed = [], i;
 
     for (i = 0; i < maskedSeed.length; i += 1)
@@ -86,7 +86,7 @@ function oaep_unpad(d, n)
     }
 
     var dbMask = oaep_mgf1_str(String.fromCharCode.apply(String, seed),
-                           d.length - SHA1_SIZE);
+                           d.length - SHA1_SIZE, rstr_sha1);
 
     var DB = [];
 
@@ -211,11 +211,11 @@ function RSADecrypt(ctext) {
 
 // Return the PKCS#1 OAEP RSA decryption of "ctext".
 // "ctext" is an even-length hex string and the output is a plain string.
-function RSADecryptOAEP(ctext) {
+function RSADecryptOAEP(ctext, hash) {
   var c = parseBigInt(ctext, 16);
   var m = this.doPrivate(c);
   if(m == null) return null;
-  return oaep_unpad(m, (this.n.bitLength()+7)>>3);
+  return oaep_unpad(m, (this.n.bitLength()+7)>>3, hash);
 }
 
 // Return the PKCS#1 RSA decryption of "ctext".
