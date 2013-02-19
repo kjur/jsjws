@@ -56,8 +56,9 @@ function _jws_getEncodedSignatureValueFromJWS(sJWS) {
  * @throws if JWS Header is a malformed JSON string.
  * @since 1.1
  */
-function _jws_parseJWS(sJWS) {
-    if (this.parsedJWS !== undefined)
+function _jws_parseJWS(sJWS, sigValNotNeeded) {
+    if ((this.parsedJWS !== undefined) &&
+        (sigValNotNeeded || (this.parsedJWS.sigvalH !== undefined)))
     {
         return;
     }
@@ -74,10 +75,13 @@ function _jws_parseJWS(sJWS) {
     this.parsedJWS.sigvalB64U = b6SigVal;
     this.parsedJWS.si = sSI;
 
-    var hSigVal = b64utohex(b6SigVal);
-    var biSigVal = parseBigInt(hSigVal, 16);
-    this.parsedJWS.sigvalH = hSigVal;
-    this.parsedJWS.sigvalBI = biSigVal;
+    if (!sigValNotNeeded)
+    {
+        var hSigVal = b64utohex(b6SigVal);
+        var biSigVal = parseBigInt(hSigVal, 16);
+        this.parsedJWS.sigvalH = hSigVal;
+        this.parsedJWS.sigvalBI = biSigVal;
+    }
 
     var sHead = b64utoutf8(b6Head);
     var sPayload = b64utoutf8(b6Payload);
@@ -105,6 +109,24 @@ function _jws_verifyJWSByNE(sJWS, hN, hE) {
     return _rsasign_verifySignatureWithArgs(this.parsedJWS.si, this.parsedJWS.sigvalBI, hN, hE);    
 }
 
+function _jws_verifyJWSByKey(sJWS, key)
+{
+    if (key.hashAndVerify)
+    {
+        this.parseJWS(sJWS, true);
+        return key.hashAndVerify(
+                _jws_getHashAlgFromParsedHead(this.parsedJWS.headP),
+                new Buffer(this.parsedJWS.si, 'utf8').toString('base64'),
+                b64utob64(this.parsedJWS.sigvalB64U),
+                'base64');
+    }
+    else
+    {
+        this.parseJWS(sJWS);
+        return _rsasign_verifySignatureWithArgs(this.parsedJWS.si, this.parsedJWS.sigvalBI, key.n, key.e);
+    }
+}
+
 /**
  * verify JWS signature by PEM formatted X.509 certificate.<br/>
  * This only supports "RS256" and "RS512" algorithm.
@@ -127,9 +149,9 @@ function _jws_verifyJWSByPemX509Cert(sJWS, sPemX509Cert) {
 
 // ==== JWS Generation =========================================================
 
-function _jws_getHashAlgFromHead(sHead) {
-    var sHeadParsed = jsonParse(sHead);
-    var sigAlg = sHeadParsed["alg"];
+function _jws_getHashAlgFromParsedHead(head)
+{
+    var sigAlg = head["alg"];
     var hashAlg = "";
 
     if (sigAlg != "RS256" && sigAlg != "RS512")
@@ -139,6 +161,10 @@ function _jws_getHashAlgFromHead(sHead) {
     return hashAlg;
 }
 
+function _jws_getHashAlgFromHead(sHead) {
+    return _jws_getHashAlgFromParsedHead(jsonParse(sHead));
+}
+
 function _jws_generateSignatureValueBySI_NED(sHead, sPayload, sSI, hN, hE, hD) {
     var rsa = new RSAKey();
     rsa.setPrivate(hN, hE, hD);
@@ -146,6 +172,21 @@ function _jws_generateSignatureValueBySI_NED(sHead, sPayload, sSI, hN, hE, hD) {
     var hashAlg = _jws_getHashAlgFromHead(sHead);
     var sigValue = rsa.signString(sSI, hashAlg);
     return sigValue;
+}
+
+function _jws_generateSignatureValueBySI_Key(sHead, sPayload, sSI, key, head)
+{
+    if (key.hashAndSign)
+    {
+        var hashAlg = head === undefined ? _jws_getHashAlgFromHead(sHead) :
+                                           _jws_getHashAlgFromParsedHead(head);
+        return b64tob64u(key.hashAndSign(hashAlg, sSI, 'binary', 'base64'));
+    }
+    else
+    {
+        return hextob64u(_jws_generateSignatureValueBySI_NED(
+                                sHead, sPayload, sSI, key.n, key.e, key.d));
+    }
 }
 
 function _jws_generateSignatureValueByNED(sHead, sPayload, hN, hE, hD) {
@@ -173,6 +214,21 @@ function _jws_generateJWSByNED(sHead, sPayload, hN, hE, hD) {
     var sSI = _getSignatureInputByString(sHead, sPayload);
     var hSigValue = _jws_generateSignatureValueBySI_NED(sHead, sPayload, sSI, hN, hE, hD);
     var b64SigValue = hextob64u(hSigValue);
+
+    this.parsedJWS = {};
+    this.parsedJWS.headB64U = sSI.split(".")[0];
+    this.parsedJWS.payloadB64U = sSI.split(".")[1];
+    this.parsedJWS.sigvalB64U = b64SigValue;
+
+    return sSI + "." + b64SigValue;
+}
+
+function _jws_generateJWSByKey(sHead, sPayload, key)
+{
+    var obj = {};
+    if (!this.isSafeJSONString(sHead, obj, 'headP')) throw "JWS Head is not safe JSON string: " + sHead;
+    var sSI = _getSignatureInputByString(sHead, sPayload);
+    var b64SigValue = _jws_generateSignatureValueBySI_Key(sHead, sPayload, sSI, key, obj.headP);
 
     this.parsedJWS = {};
     this.parsedJWS.headB64U = sSI.split(".")[0];
@@ -302,7 +358,9 @@ JWS.prototype.parseJWS = _jws_parseJWS;
 
 // siging
 JWS.prototype.generateJWSByNED = _jws_generateJWSByNED;
+JWS.prototype.generateJWSByKey = _jws_generateJWSByKey;
 JWS.prototype.generateJWSByP1PrvKey = _jws_generateJWSByP1PrvKey;
 // verify
 JWS.prototype.verifyJWSByNE = _jws_verifyJWSByNE;
+JWS.prototype.verifyJWSByKey = _jws_verifyJWSByKey;
 JWS.prototype.verifyJWSByPemX509Cert = _jws_verifyJWSByPemX509Cert;

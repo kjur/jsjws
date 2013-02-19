@@ -177,6 +177,22 @@ function b64utohex(s) {
     return b64tohex(b64utob64(s));
 }
 
+var utf8tob64u, b64utoutf8;
+
+if (typeof Buffer === 'function')
+{
+  utf8tob64u = function (s)
+  {
+    return b64tob64u(new Buffer(s, 'utf8').toString('base64'));
+  };
+
+  b64utoutf8 = function (s)
+  {
+    return new Buffer(b64utob64(s), 'base64').toString('utf8');
+  };
+}
+else
+{
 // ==== utf8 / base64url ================================
 /**
  * convert a UTF-8 encoded string including CJK or Latin to a Base64URL encoded string.<br/>
@@ -184,9 +200,10 @@ function b64utohex(s) {
  * @return {String} Base64URL encoded string
  * @since 1.1
  */
-function utf8tob64u(s) {
-  return hextob64u(uricmptohex(encodeURIComponentAll(s)));
-}
+  utf8tob64u = function (s)
+  {
+    return hextob64u(uricmptohex(encodeURIComponentAll(s)));
+  };
 
 /**
  * convert a Base64URL encoded string to a UTF-8 encoded string including CJK or Latin.<br/>
@@ -194,8 +211,10 @@ function utf8tob64u(s) {
  * @return {String} UTF-8 encoded string
  * @since 1.1
  */
-function b64utoutf8(s) {
-  return decodeURIComponent(hextouricmp(b64utohex(s)));
+  b64utoutf8 = function (s)
+  {
+    return decodeURIComponent(hextouricmp(b64utohex(s)));
+  };
 }
 
 // ==== utf8 / base64url ================================
