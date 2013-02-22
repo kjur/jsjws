@@ -151,8 +151,8 @@ function b64tob64u(s) {
  * @return {String} Base64 encoded string
  */
 function b64utob64(s) {
-    if (s.length % 3 == 1) s = s + "==";
-    if (s.length % 3 == 2) s = s + "=";
+    if (s.length % 4 == 2) s = s + "==";
+    if (s.length % 4 == 3) s = s + "=";
     s = s.replace(/-/g, "+");
     s = s.replace(/_/g, "/");
     return s;
