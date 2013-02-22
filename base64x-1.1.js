@@ -152,7 +152,7 @@ function b64tob64u(s) {
  */
 function b64utob64(s) {
     if (s.length % 4 == 2) s = s + "==";
-    if (s.length % 4 == 3) s = s + "=";
+    else if (s.length % 4 == 3) s = s + "=";
     s = s.replace(/-/g, "+");
     s = s.replace(/_/g, "/");
     return s;
