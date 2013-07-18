@@ -133,7 +133,7 @@ function _rsasign_signStringPSS(s, hashAlg, sLen)
 
     if (sLen === -1)
     {
-        sLen = hLen; // same has hash length
+        sLen = hLen; // same as hash length
     }
     else if ((sLen === -2) || (sLen === undefined))
     {
@@ -271,9 +271,9 @@ function _rsasign_verifyString(sMsg, hSig) {
   return (diHashValue == msgHashValue);
 }
 
-function _rsasign_verifyStringPSS(sMsg, hSig, hashAlg, sLen)
+function _rsasign_verifyStringPSS(sMsg, biSig, hashAlg, sLen)
 {
-    if (hSig.length !== this.n.bitLength() / 4)
+    if (biSig.bitLength() > this.n.bitLength())
     {
         return false;
     }
@@ -287,11 +287,11 @@ function _rsasign_verifyStringPSS(sMsg, hSig, hashAlg, sLen)
 
     if (sLen === -1)
     {
-        sLen = hLen; // same has hash length
+        sLen = hLen; // same as hash length
     }
     else if ((sLen === -2) || (sLen === undefined))
     {
-        sLen = emLen - hLen - 2; // maximum
+        sLen = emLen - hLen - 2; // recover
     }
     else if (sLen < -2)
     {
@@ -303,7 +303,7 @@ function _rsasign_verifyStringPSS(sMsg, hSig, hashAlg, sLen)
         throw "data too long";
     }
 
-    var em = this.doPublic(parseBigInt(hSig, 16)).toByteArray();
+    var em = this.doPublic(biSig).toByteArray();
 
     for (i = 0; i < em.length; i += 1)
     {
