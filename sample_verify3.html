@@ -13,11 +13,11 @@
 <script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/ext/rsa.js"></script>
 <script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/ext/rsa2.js"></script>
 <script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/rsapem-1.1.js"></script>
-<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/rsasign-1.2.min.js"></script>
 <script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/asn1hex-1.1.js"></script>
 <script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/x509-1.1.js"></script>
 <script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/crypto-1.1.js"></script>
 <script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/base64x-1.1.js"></script>
+<script language="JavaScript" type="text/javascript" src="../../../jsrsa/_gitpg/jsrsasign/rsasign-1.2.js"></script>
 
 <script language="JavaScript" type="text/javascript" src="ext/json-sans-eval.js"></script>
 <script language="JavaScript" type="text/javascript" src="jws-2.0.js"></script>
@@ -32,12 +32,14 @@ function doVerify() {
 
   var jws = new KJUR.jws.JWS();
   var result = 0;
-  try {
-    result = jws.verifyJWSByPemX509Cert(sJWS, sCert);
-  } catch (ex) {
-    alert("Error: " + ex);
-    result = 0;
-  }
+  //try {
+    var cert = new X509();
+    cert.readCertPEM(sCert);
+    result = jws.verifyJWSByKey(sJWS, cert.subjectPublicKeyRSA);
+  //} catch (ex) {
+  //  alert("Error: " + ex);
+  //  result = 0;
+  //}
 
   document.form1.im_enchead1.value = jws.parsedJWS.headB64U;
   document.form1.im_encpayload1.value = jws.parsedJWS.payloadB64U;
@@ -70,7 +72,8 @@ Default values are cited from <a href="http://tools.ietf.org/html/draft-jones-js
 <table width="100%">
 <tbody>
 <tr><td rowspan="2">Input</td><td>JWS</td><td colspan="2">
-<textarea name="jws1" rows="8" cols="100">eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ.qCW4l5nfdvBt-yl_OiYRFrKkribqbDbmQ9ULyemAgCNXAAr70hN5-IERIefzySpm6Er4UuX_aXcnIXgMvK-hFMFhLOuJckrDEe1Pz-OzqScvGSJUbeOsd_nB9E2BNVYZrgMESQOifiEyUtWdbzCoMgf9nQg2AEWbVSaPImqQkGp-JZsJsvMUC-3A3RcimGIjLv-A8skyhNufASd6DPgk46Ydqt6vi2L6d2InvZSkhTSsYhbfm9TgrKyA906YHE0zE-asuXAzI1ISPxAjlO8ZhekEvg6teaa-1cSQQdOFj-ZWpqVsEI1YXr7zuvugWQhqfBqqPcT6fP5t3ff8FKwV9w</textarea></td></tr>
+<textarea name="jws1" rows="8" cols="100">
+eyJhbGciOiJQUzI1NiJ9.eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ.D9-tkEEU1-kgfZ2g4WjaYwZLpDxjt8D83IsGOeaiBzLeUDMYmlqt5hspvpkLZOeSb8jEtgTdEQ77u1QReGbMw_5n9kaarXI1KJbTFbkOOP0O7ElSqK1Ebfrw8BQR-Ws0e-Qz0N0O8WFtwDpmeysnE0juwF_r18Qv8S3QnrWPkIUB7buDIaOldDfts4nyLSUj0X-C3WHK-JpZ-jXGpI5OMAObIY1FLvSKYmJPXKUWe1t3mecrzQgQSGsNg2WoiosgLzk8JrTjIFX9XTLTQRNZevDgy-2VfGr43K80SslJD3a_f-Cpl6IzaHmFWotSzYJ5e4n5fc9Q7UVIWwgrtxiqYg</textarea></td></tr>
 <tr><td>PEM X.509 Certificate verify with</td><td colspan="2">
 <textarea name="cert1" cols="65" rows="8">-----BEGIN CERTIFICATE-----
 MIIDMjCCAhqgAwIBAgIJAKMfG/B2MKd5MA0GCSqGSIb3DQEBBQUAMBoxCzAJBgNV
@@ -125,16 +128,16 @@ K3V9/Bpi
 
 <h3>USAGE</h3>
 <ol>
-<li>Fill JWS signature, modulus and public exponent of a public key if you need.</li>
+<li>Fill JWS signature and X509 certificate if you need.</li>
 <li>Then just press "Verify JWS Signature" button.</li>
 <li>If the signature is valid, you will see a dialog 'JWS signature is '*Valid*'.
 You may see an error dialog if it is malformed signature.</li>
 </li>
-<li>As for JWS signature generation, please see <a href="sample_generate.html">this sample</a>.</li>
+<li>As for JWS signature generation, please see <a href="sample_generate3.html">this sample</a>.</li>
 </ol>
 
 <center>
-Copyright &copy; 2012 Kenji Urushima, All Rights Reserved.
+Copyright &copy; 2013 Kenji Urushima and Dave All Rights Reserved.
 </center>
 
 <div align="right">
