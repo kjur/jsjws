@@ -6,7 +6,7 @@ ChangeLog for jsjws
   - class implementation was chagned
   - supports PS{256,512} signature algorithm
     NOTE: however still having issue on PS{256,512} support
-  - jsrsasign codes are no included from this release
+  - jsrsasign codes are not included from this release
 
 * 1.2.1 Release [May 7, 2013]
  - merge David Halls's contribution. (https://github.com/davedoesdev, Thanks! Dave.)
