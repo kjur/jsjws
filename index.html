@@ -19,10 +19,15 @@
           <h1 id="project_title">jsjws</h1>
           <h2 id="project_tagline">pure JavaScript implementation of JSON Web Signature and JWS-JS</h2>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/kjur/jsjws/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/kjur/jsjws/tarball/master">Download this project as a tar.gz file</a>
-            </section>
+          <section id="downloads">
+            <a class="zip_download_link" href="https://github.com/kjur/jsjws/zipball/master">Download this project as a .zip file</a>
+            <a class="tar_download_link" href="https://github.com/kjur/jsjws/tarball/master">Download this project as a tar.gz file</a>
+          </section>
+          <a href="http://kjur.github.io/jsjws/">TOP</a> | 
+          <a href="https://github.com/kjur/jsjws/tags/" target="_blank">DOWNLOADS</a> | 
+          <a href="https://github.com/kjur/jsjws/wiki#programming-tutorial">TUTORIALS</a> | 
+          <a href="http://kjur.github.io/jsjws/api/" target="_blank">API REFERENCE</a> | 
+          <a href="http://kjur.github.io/jsjws/index.html#demo" target="_blank">DEMOS</a> | 
         </header>
     </div>
 
@@ -44,8 +49,21 @@ Furthermore, 'jsjws' provides JSON Web Signature JSON Serialization (JWS-JS)
 <a href="http://tools.ietf.org/html/draft-jones-json-web-signature-json-serialization-01" target="_blank">[3]</a>
 which is a kind of parallel or independent signature format by multiple signers.
 
+<h3>FEATURES</h3>
+<ul>
+<li>sign and verify a JSON Web Signature(JWS) of RSA algorithm</li>
+<li>implemented by pure JavaScript</li>
+<li>'jsjws' will work on any modern browsers including smart phones</li>
+<li>'jsjws' supports 'RS256', 'RS512', 'PS256' and 'PS512' signature algorithms</li>
+<li>'jsjws' can be used with naked key, X.509 certificate and PKCS#1 private key</li>
+<li>'jsjws' supports UTF-8 characters including CJK, Latin and non-ASCII in JWS Header and Payload</li>
+<li>sign and verify a JSON Web Signature JSON Serialization (JWS-JS)</li>
+</ul>
+
 <h3>NEWS</h3>
 <dl>
+<dt><b>2013-Jul-21</b>: 
+<dd>Release 2.0 is now available to support PS{256,512} signature algorithm.
 <dt><b>2012-May-21</b>: 
 <dd>Release 1.2 is now available to add JWS-JS parallel signature support.
 <dt><b>2012-May-07</b>: 
@@ -75,18 +93,18 @@ which is a kind of parallel or independent signature format by multiple signers.
 <li><a href="sample_jwsjsveri1.html" target="_blank">verify JWS-JS</a></li>
 </ul>
 
-<h3>LIBRARY FEATURES</h3>
+<h3>DOWNLOAD</h3>
+
 <ul>
-<li>sign and verify a JSON Web Signature(JWS) of RSA algorithm</li>
-<li>implemented by pure JavaScript</li>
-<li>'jsjws' will work on any modern browsers including smart phones</li>
-<li>'jsjws' supports 'RS256' and 'RS512' signature algorithms</li>
-<li>'jsjws' can be used with naked key, X.509 certificate and PKCS#1 private key</li>
-<li>'jsjws' supports UTF-8 characters including CJK, Latin and non-ASCII in JWS Header and Payload</li>
-<li>sign and verify a JSON Web Signature JSON Serialization (JWS-JS)</li>
+<li>Use git to clonse the official jsrsasign repository
+<blockquote>git clone git://github.com/kjur/jsjws.git</blockquote>
+</li>
+<li>Alternatively, you can download a zip file for the
+<a href="https://github.com/kjur/jsjws/archive/master.zip">latest development version</a> 
+or a <a href="https://github.com/kjur/jsjws/tags/">previous releases</a>.
+</li>
 </ul>
 
-<h3>DOWNLOAD</h3>
 <ul>
 <li><a href="jsjws-1.2.tgz">Release 1.2 (jsjws-1.2.tgz)</a>: May 21, 2012 - JWS-JS support</li>
 <li><a href="jsjws-1.1.tgz">Release 1.1 (jsjws-1.1.tgz)</a>: May 07, 2012 - UTF-8, X.509 certificate and PKCS#1 private key support</li>
