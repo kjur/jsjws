@@ -204,14 +204,16 @@ KJUR.jws.JWS = function() {
      */
     this.verifyJWSByKey = function(sJWS, key) {
 	this.parseJWS(sJWS);
-	var hashAlg = _jws_getHashAlgFromParsedHead(this.parsedJWS.headP);
+	var hashAlg = _jws_getHashAlgFromParsedHead(this.parsedJWS.headP),
+        isPSS = this.parsedJWS.headP['alg'].substr(0, 2) == "PS";
 
 	if (key.hashAndVerify) {
 	    return key.hashAndVerify(hashAlg,
 				     new Buffer(this.parsedJWS.si, 'utf8').toString('base64'),
 				     b64utob64(this.parsedJWS.sigvalB64U),
-				     'base64');
-	} else if (this.parsedJWS.headP['alg'].substr(0, 2) == "PS") {
+				     'base64',
+                     isPSS);
+	} else if (isPSS) {
 	    return key.verifyStringPSS(this.parsedJWS.si,
 				       this.parsedJWS.sigvalBI, hashAlg);
 	} else {
@@ -276,7 +278,7 @@ KJUR.jws.JWS = function() {
 
 	if (key.hashAndSign) {
 	    return b64tob64u(key.hashAndSign(hashAlg, sSI, 'binary', 'base64'));
-	} else if (hashAlg.substr(0, 2) == "PS") {
+	} else if (head["alg"].substr(0, 2) == "PS") {
 	    return hextob64u(key.signStringPSS(sSI, hashAlg));
 	} else {
 	    return hextob64u(key.signString(sSI, hashAlg));
