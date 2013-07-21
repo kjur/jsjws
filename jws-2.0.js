@@ -218,7 +218,7 @@ KJUR.jws.JWS = function() {
 				       this.parsedJWS.sigvalBI, hashAlg);
 	} else {
 	    return key.verifyString(this.parsedJWS.si,
-				    this.parsedJWS.sigvalBI);
+				    this.parsedJWS.sigvalH);
 	}
     };
 
