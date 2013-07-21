@@ -109,47 +109,21 @@ function _jws_verifyJWSByNE(sJWS, hN, hE) {
     return _rsasign_verifySignatureWithArgs(this.parsedJWS.si, this.parsedJWS.sigvalBI, hN, hE);    
 }
 
-/**
- * verify JWS signature with RSA public key.<br/>
- * This only supports "RS256", "RS512", "PS256" and "PS512" algorithms.
- * @name verifyJWSByKey
- * @memberOf JWS#
- * @function
- * @param {String} sJWS JWS signature string to be verified
- * @param {RSAKey} RSA public key
- * @return {Boolean} returns true when JWS signature is valid, otherwise returns false
- * @throws if sJWS is not comma separated string such like "Header.Payload.Signature".
- * @throws if JWS Header is a malformed JSON string.
- */
 function _jws_verifyJWSByKey(sJWS, key)
 {
     if (key.hashAndVerify)
     {
         this.parseJWS(sJWS, true);
-        var info = _jws_getHashAlgFromParsedHead(this.parsedJWS.headP, true);
-
         return key.hashAndVerify(
-                info.hashAlg,
+                _jws_getHashAlgFromParsedHead(this.parsedJWS.headP),
                 new Buffer(this.parsedJWS.si, 'utf8').toString('base64'),
                 b64utob64(this.parsedJWS.sigvalB64U),
-                'base64',
-                info.isPSS);
+                'base64');
     }
     else
     {
         this.parseJWS(sJWS);
-        var info = _jws_getHashAlgFromParsedHead(this.parsedJWS.headP, true);
-
-        if (info.isPSS)
-        {
-            return key.verifyStringPSS(this.parsedJWS.si,
-                                       this.parsedJWS.sigvalBI,
-                                       info.hashAlg);
-        }
-        else
-        {
-            return key.verifyString(this.parsedJWS.si, this.parsedJWS.sigvalH);
-        }
+        return _rsasign_verifySignatureWithArgs(this.parsedJWS.si, this.parsedJWS.sigvalBI, key.n, key.e);
     }
 }
 
@@ -175,32 +149,20 @@ function _jws_verifyJWSByPemX509Cert(sJWS, sPemX509Cert) {
 
 // ==== JWS Generation =========================================================
 
-function _jws_getHashAlgFromParsedHead(head, getInfo)
+function _jws_getHashAlgFromParsedHead(head)
 {
     var sigAlg = head["alg"];
     var hashAlg = "";
 
-    if (sigAlg != "RS256" && sigAlg != "RS512" &&
-        (!getInfo || (sigAlg != "PS256" && sigAlg != "PS512")))
+    if (sigAlg != "RS256" && sigAlg != "RS512")
 	throw "JWS signature algorithm not supported: " + sigAlg;
-    if (sigAlg == "RS256" || sigAlg == "PS256") hashAlg = "sha256";
-    if (sigAlg == "RS512" || sigAlg == "PS512") hashAlg = "sha512";
-
-    if (getInfo)
-    {
-        return {
-            hashAlg: hashAlg,
-            isPSS: sigAlg == "PS256" || sigAlg == "PS512"
-        };
-    }
-    else
-    {
-        return hashAlg;
-    }
+    if (sigAlg == "RS256") hashAlg = "sha256";
+    if (sigAlg == "RS512") hashAlg = "sha512";
+    return hashAlg;
 }
 
-function _jws_getHashAlgFromHead(sHead, getInfo) {
-    return _jws_getHashAlgFromParsedHead(jsonParse(sHead), getInfo);
+function _jws_getHashAlgFromHead(sHead) {
+    return _jws_getHashAlgFromParsedHead(jsonParse(sHead));
 }
 
 function _jws_generateSignatureValueBySI_NED(sHead, sPayload, sSI, hN, hE, hD) {
@@ -214,20 +176,16 @@ function _jws_generateSignatureValueBySI_NED(sHead, sPayload, sSI, hN, hE, hD) {
 
 function _jws_generateSignatureValueBySI_Key(sHead, sPayload, sSI, key, head)
 {
-    var info = head === undefined ? _jws_getHashAlgFromHead(sHead, true) :
-                                    _jws_getHashAlgFromParsedHead(head, true);
-
     if (key.hashAndSign)
     {
-        return b64tob64u(key.hashAndSign(info.hashAlg, sSI, 'binary', 'base64', info.isPSS));
-    }
-    else if (info.isPSS)
-    {
-        return hextob64u(key.signStringPSS(sSI, info.hashAlg));
+        var hashAlg = head === undefined ? _jws_getHashAlgFromHead(sHead) :
+                                           _jws_getHashAlgFromParsedHead(head);
+        return b64tob64u(key.hashAndSign(hashAlg, sSI, 'binary', 'base64'));
     }
     else
     {
-        return hextob64u(key.signString(sSI, info.hashAlg));
+        return hextob64u(_jws_generateSignatureValueBySI_NED(
+                                sHead, sPayload, sSI, key.n, key.e, key.d));
     }
 }
 
@@ -237,7 +195,7 @@ function _jws_generateSignatureValueByNED(sHead, sPayload, hN, hE, hD) {
 }
 
 /**
- * generate JWS signature by Header, Payload and a naked RSA private key.<br/>
+ * generate JWS signature by Header, Payload and a RSA private key.<br/>
  * This only supports "RS256" and "RS512" algorithm.
  * @name generateJWSByNED
  * @memberOf JWS#
@@ -265,19 +223,6 @@ function _jws_generateJWSByNED(sHead, sPayload, hN, hE, hD) {
     return sSI + "." + b64SigValue;
 }
 
-/**
- * generate JWS signature by Header, Payload and a RSA private key.<br/>
- * This only supports "RS256", "RS512", "PS256" and "PS512" algorithms.
- * @name generateJWSByKey
- * @memberOf JWS#
- * @function
- * @param {String} sHead string of JWS Header
- * @param {String} sPayload string of JWS Payload
- * @param {RSAKey} RSA private key
- * @return {String} JWS signature string
- * @throws if sHead is a malformed JSON string.
- * @throws if supported signature algorithm was not specified in JSON Header.
- */
 function _jws_generateJWSByKey(sHead, sPayload, key)
 {
     var obj = {};
