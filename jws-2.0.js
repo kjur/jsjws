@@ -276,9 +276,11 @@ KJUR.jws.JWS = function() {
 	    hashAlg = _jws_getHashAlgFromParsedHead(head);
 	}
 
+    var isPSS = head['alg'].substr(0, 2) == "PS";
+
 	if (key.hashAndSign) {
-	    return b64tob64u(key.hashAndSign(hashAlg, sSI, 'binary', 'base64'));
-	} else if (head["alg"].substr(0, 2) == "PS") {
+	    return b64tob64u(key.hashAndSign(hashAlg, sSI, 'binary', 'base64', isPSS));
+	} else if (isPSS) {
 	    return hextob64u(key.signStringPSS(sSI, hashAlg));
 	} else {
 	    return hextob64u(key.signString(sSI, hashAlg));
