@@ -161,7 +161,7 @@ KJUR.jws.JWS = function() {
     };
 
     function _getHashBySignatureInput(sSignatureInput, sHashAlg) {
-	var hashfunc = _RSASIGN_HASHHEXFUNC[sHashAlg];
+	var hashfunc = function(s) { return KJUR.crypto.Util.hashString(s, sHashAlg); };
 	if (hashfunc == null) throw "hash function not defined in jsrsasign: " + sHashAlg;
 	return hashfunc(sSignatureInput);
     };
