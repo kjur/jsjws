@@ -1,6 +1,9 @@
 
 ChangeLog for jsjws
 
+* 2.0.2 Release [Jul 29, 2013]
+ - small fix for jws-2.0.js (2.0.1 -> 2.0.2)
+
 * 2.0.1 Release [Jul 23, 2013]
  - fix RSAPSS by David (github.com/davedoesdev)
    (jws-2.0.js, sample_{generate,verify}3.html)
