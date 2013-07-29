@@ -1,9 +1,9 @@
-/*! jws-2.0 (c) 2012 Kenji Urushima | kjur.github.com/jsjws/license
+/*! jws-2.0.2 (c) 2012 Kenji Urushima | kjur.github.com/jsjws/license
  */
 /*
  * jws.js - JSON Web Signature Class
  *
- * version: 2.0.0 (2013 Jul 20)
+ * version: 2.0.2 (2013 Jul 29)
  *
  * Copyright (c) 2010-2013 Kenji Urushima (kenji.urushima@gmail.com)
  *
@@ -18,7 +18,7 @@
  * @fileOverview
  * @name jws-2.0.js
  * @author Kenji Urushima kenji.urushima@gmail.com
- * @version 2.0.0 (2013-Jul-20)
+ * @version 2.0.2 (2013-Jul-29)
  * @since jsjws 1.0
  * @license <a href="http://kjur.github.io/jsjws/license/">MIT License</a>
  */
@@ -161,7 +161,7 @@ KJUR.jws.JWS = function() {
     };
 
     function _getHashBySignatureInput(sSignatureInput, sHashAlg) {
-	var hashfunc = _RSASIGN_HASHHEXFUNC[sHashAlg];
+	var hashfunc = function(s) { return KJUR.crypto.Util.hashString(s, sHashAlg); };
 	if (hashfunc == null) throw "hash function not defined in jsrsasign: " + sHashAlg;
 	return hashfunc(sSignatureInput);
     };
