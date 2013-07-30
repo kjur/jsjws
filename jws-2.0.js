@@ -18,7 +18,7 @@
  * @fileOverview
  * @name jws-2.0.js
  * @author Kenji Urushima kenji.urushima@gmail.com
- * @version 2.0.2 (2013-Jul-29)
+ * @version 2.0.3 (2013-Jul-30)
  * @since jsjws 1.0
  * @license <a href="http://kjur.github.io/jsjws/license/">MIT License</a>
  */
@@ -197,14 +197,14 @@ KJUR.jws.JWS = function() {
      * @memberOf KJUR.jws.JWS
      * @function
      * @param {String} sJWS JWS signature string to be verified
-     * @param {RSAKey} RSA public key
+     * @param {RSAKey} key RSA public key
      * @return {Boolean} returns true when JWS signature is valid, otherwise returns false
      * @throws if sJWS is not comma separated string such like "Header.Payload.Signature".
      * @throws if JWS Header is a malformed JSON string.
      */
     this.verifyJWSByKey = function(sJWS, key) {
 	this.parseJWS(sJWS);
-	var hashAlg = _jws_getHashAlgFromParsedHead(this.parsedJWS.headP),
+	var hashAlg = _jws_getHashAlgFromParsedHead(this.parsedJWS.headP);
         var isPSS = this.parsedJWS.headP['alg'].substr(0, 2) == "PS";
 
 	if (key.hashAndVerify) {
