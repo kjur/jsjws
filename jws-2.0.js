@@ -1,9 +1,9 @@
-/*! jws-2.0.2 (c) 2012 Kenji Urushima | kjur.github.com/jsjws/license
+/*! jws-2.0.3 (c) 2012 Kenji Urushima | kjur.github.com/jsjws/license
  */
 /*
  * jws.js - JSON Web Signature Class
  *
- * version: 2.0.2 (2013 Jul 29)
+ * version: 2.0.3 (2013 Jul 30)
  *
  * Copyright (c) 2010-2013 Kenji Urushima (kenji.urushima@gmail.com)
  *
@@ -205,17 +205,17 @@ KJUR.jws.JWS = function() {
     this.verifyJWSByKey = function(sJWS, key) {
 	this.parseJWS(sJWS);
 	var hashAlg = _jws_getHashAlgFromParsedHead(this.parsedJWS.headP),
-        isPSS = this.parsedJWS.headP['alg'].substr(0, 2) == "PS";
+        var isPSS = this.parsedJWS.headP['alg'].substr(0, 2) == "PS";
 
 	if (key.hashAndVerify) {
 	    return key.hashAndVerify(hashAlg,
 				     new Buffer(this.parsedJWS.si, 'utf8').toString('base64'),
 				     b64utob64(this.parsedJWS.sigvalB64U),
 				     'base64',
-                     isPSS);
+				     isPSS);
 	} else if (isPSS) {
 	    return key.verifyStringPSS(this.parsedJWS.si,
-				       this.parsedJWS.sigvalBI, hashAlg);
+				       this.parsedJWS.sigvalH, hashAlg);
 	} else {
 	    return key.verifyString(this.parsedJWS.si,
 				    this.parsedJWS.sigvalH);
@@ -276,7 +276,7 @@ KJUR.jws.JWS = function() {
 	    hashAlg = _jws_getHashAlgFromParsedHead(head);
 	}
 
-    var isPSS = head['alg'].substr(0, 2) == "PS";
+	var isPSS = head['alg'].substr(0, 2) == "PS";
 
 	if (key.hashAndSign) {
 	    return b64tob64u(key.hashAndSign(hashAlg, sSI, 'binary', 'base64', isPSS));

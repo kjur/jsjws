@@ -1,6 +1,10 @@
 
 ChangeLog for jsjws
 
+* 2.0.2 Release (2013-Jul-30)
+ - jws-2.0.js 2.0.2 to 2.0.3
+   - support for rsasign 1.2.5 (verifyStringPSS arg bi to hex change)
+
 * 2.0.2 Release [Jul 29, 2013]
  - small fix for jws-2.0.js (2.0.1 -> 2.0.2)
 
