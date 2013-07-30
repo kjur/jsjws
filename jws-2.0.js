@@ -1,9 +1,9 @@
-/*! jws-2.0.2 (c) 2012 Kenji Urushima | kjur.github.com/jsjws/license
+/*! jws-2.0.3 (c) 2012 Kenji Urushima | kjur.github.com/jsjws/license
  */
 /*
  * jws.js - JSON Web Signature Class
  *
- * version: 2.0.2 (2013 Jul 29)
+ * version: 2.0.3 (2013 Jul 30)
  *
  * Copyright (c) 2010-2013 Kenji Urushima (kenji.urushima@gmail.com)
  *
@@ -18,7 +18,7 @@
  * @fileOverview
  * @name jws-2.0.js
  * @author Kenji Urushima kenji.urushima@gmail.com
- * @version 2.0.2 (2013-Jul-29)
+ * @version 2.0.3 (2013-Jul-30)
  * @since jsjws 1.0
  * @license <a href="http://kjur.github.io/jsjws/license/">MIT License</a>
  */
@@ -197,25 +197,25 @@ KJUR.jws.JWS = function() {
      * @memberOf KJUR.jws.JWS
      * @function
      * @param {String} sJWS JWS signature string to be verified
-     * @param {RSAKey} RSA public key
+     * @param {RSAKey} key RSA public key
      * @return {Boolean} returns true when JWS signature is valid, otherwise returns false
      * @throws if sJWS is not comma separated string such like "Header.Payload.Signature".
      * @throws if JWS Header is a malformed JSON string.
      */
     this.verifyJWSByKey = function(sJWS, key) {
 	this.parseJWS(sJWS);
-	var hashAlg = _jws_getHashAlgFromParsedHead(this.parsedJWS.headP),
-        isPSS = this.parsedJWS.headP['alg'].substr(0, 2) == "PS";
+	var hashAlg = _jws_getHashAlgFromParsedHead(this.parsedJWS.headP);
+        var isPSS = this.parsedJWS.headP['alg'].substr(0, 2) == "PS";
 
 	if (key.hashAndVerify) {
 	    return key.hashAndVerify(hashAlg,
 				     new Buffer(this.parsedJWS.si, 'utf8').toString('base64'),
 				     b64utob64(this.parsedJWS.sigvalB64U),
 				     'base64',
-                     isPSS);
+				     isPSS);
 	} else if (isPSS) {
 	    return key.verifyStringPSS(this.parsedJWS.si,
-				       this.parsedJWS.sigvalBI, hashAlg);
+				       this.parsedJWS.sigvalH, hashAlg);
 	} else {
 	    return key.verifyString(this.parsedJWS.si,
 				    this.parsedJWS.sigvalH);
@@ -276,7 +276,7 @@ KJUR.jws.JWS = function() {
 	    hashAlg = _jws_getHashAlgFromParsedHead(head);
 	}
 
-    var isPSS = head['alg'].substr(0, 2) == "PS";
+	var isPSS = head['alg'].substr(0, 2) == "PS";
 
 	if (key.hashAndSign) {
 	    return b64tob64u(key.hashAndSign(hashAlg, sSI, 'binary', 'base64', isPSS));
