@@ -1,6 +1,33 @@
 
 ChangeLog for jsjws
 
+* 3.0.0 Release (2013-Aug-27)
+ - easy and powerful sign and verify methods available
+ - now supports HS{256,512},RS{256,384,512},ES{256,384},PS{256,384,512},none
+   (i.e. supports all algorithms except HS384 and ES512.)
+ - other existing signing and verfying methods are deprecated.
+ - now supports signing by following keys:
+   - PEM plain RSA PKCS#5 private key (NEW)
+   - PEM encrypted RSA PKCS#5 private key (NEW)
+   - PEM plain RSA/ECC PKCS#8 private key (NEW)
+   - PEM encrypted RSA/ECC PKCS#8 private key (NEW)
+   - RSAKey object of private key
+   - KJUR.crypto.ECDSA object of private key (NEW)
+ - now supports verifying by following keys:
+   - PEM RSA/ECC PKCS#8 public key (NEW)
+   - PEM RSA/ECC X.509 certificate
+   - RSAKey object of public key
+   - KJUR.crypto.ECDSA object of public key (NEW)
+- now supports following asymmetoric key algorithms
+   - RSA
+   - ECDSA (NEW)
+   - RSAPSS
+ - QUnit unit tests added.
+
+* 2.0.2 Release (2013-Jul-30)
+ - jws-2.0.js 2.0.2 to 2.0.3
+   - support for rsasign 1.2.5 (verifyStringPSS arg bi to hex change)
+
 * 2.0.2 Release [Jul 29, 2013]
  - small fix for jws-2.0.js (2.0.1 -> 2.0.2)
 
