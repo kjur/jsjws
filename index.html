@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="jsjws : pure JavaScript implementation of JSON Web Signature" />
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-    <title>jsjws</title>
-  </head>
+<head>
+<meta charset='utf-8' />
+<meta http-equiv="X-UA-Compatible" content="chrome=1" />
+<meta name="description" content="jsjws : pure JavaScript implementation of JSON Web Signature" />
+<link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+<title>jsjws</title>
+</head>
 
-  <body>
+<body>
 
     <!-- HEADER -->
     <div id="header_wrap" class="outer">
@@ -54,7 +54,9 @@ which is a kind of parallel or independent signature format by multiple signers.
 <li>sign and verify a JSON Web Signature(JWS) of RSA algorithm</li>
 <li>implemented by pure JavaScript</li>
 <li>'jsjws' will work on any modern browsers including smart phones</li>
-<li>'jsjws' supports 'RS256', 'RS512', 'PS256' and 'PS512' signature algorithms</li>
+<li>'jsjws' all algorithms except HS384 and ES512 (i.e. jsjws now supports 
+     HS256, HS512, RS256, RS384, RS512, ES256, ES384, PS256, PS384, PS512, none.)</li>
+<li>powerful and easy 'sign' and 'verify' method.</li>
 <li>'jsjws' can be used with naked key, X.509 certificate and PKCS#1 private key</li>
 <li>'jsjws' supports UTF-8 characters including CJK, Latin and non-ASCII in JWS Header and Payload</li>
 <li>sign and verify a JSON Web Signature JSON Serialization (JWS-JS)</li>
@@ -62,6 +64,14 @@ which is a kind of parallel or independent signature format by multiple signers.
 
 <h3>NEWS</h3>
 <dl>
+<dt><b>2013-Aug-27</b>: 
+<dd>Release 3.0.0
+<ul>
+<li>provides powerful and easy signing and verifying method.</li>
+<li>add ECDSA and HMAC support</li>
+<li>add PKCS#5 and PKCS#8 encrypted/plain private key support</li>
+<li>QUnit unit tests added</li>
+</ul>
 <dt><b>2013-Jul-23</b>: 
 <dd>Release 2.0.1 to fix RSAPSS signatures.
 <dt><b>2013-Jul-21</b>: 
