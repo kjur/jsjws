@@ -28,6 +28,7 @@ if (typeof KJUR.jws == "undefined" || !KJUR.jws) KJUR.jws = {};
 
 /**
  * JSON Web Signature(JWS) class.<br/>
+ * @name KJUR.jws.JWS
  * @class JSON Web Signature(JWS) class
  * @property {Dictionary} parsedJWS This property is set after JWS signature verification. <br/>
  *           Following "parsedJWS_*" properties can be accessed as "parsedJWS.*" because of
@@ -40,7 +41,6 @@ if (typeof KJUR.jws == "undefined" || !KJUR.jws) KJUR.jws = {};
  * @property {String} parsedJWS_sigvalBI BigInteger(defined in jsbn.js) object of JWS signature value
  * @property {String} parsedJWS_headS string of decoded JWS Header
  * @property {String} parsedJWS_headS string of decoded JWS Payload
- * @author Kenji Urushima
  * @requires base64x.js, json-sans-eval.js and jsrsasign library
  * @see <a href="http://kjur.github.com/jsjws/">'jwjws'(JWS JavaScript Library) home page http://kjur.github.com/jsjws/</a>
  * @see <a href="http://kjur.github.com/jsrsasigns/">'jwrsasign'(RSA Sign JavaScript Library) home page http://kjur.github.com/jsrsasign/</a>
@@ -607,20 +607,54 @@ KJUR.jws.JWS.getEncodedSignatureValueFromJWS = function(sJWS) {
     return RegExp.$1;
 };
 
-/*
+/**
+ * IntDate class for time representation for JSON Web Token(JWT)
+ * @class KJUR.jws.IntDate class
+ * @name KJUR.jws.IntDate
  * @since jws 3.0.1
+ * @description
+ * Utility class for IntDate which is integer representation of UNIX origin time
+ * used in JSON Web Token(JWT).
  */
 KJUR.jws.IntDate = function() {
 };
 
-/*
+/**
+ * @name get
+ * @memberOf KJUR.jws.IntDate
+ * @function
+ * @static
+ * @param {String} s string of time representation
+ * @return {Integer} UNIX origin time in seconds for argument 's'
  * @since jws 3.0.1
+ * @throws "unsupported format: s" when malformed format
+ * @description
+ * This method will accept following representation of time.
+ * <ul>
+ * <li>now - current time</li>
+ * <li>now + 1hour - after 1 hour from now</li>
+ * <li>now + 1day - after 1 day from now</li>
+ * <li>now + 1month - after 30 days from now</li>
+ * <li>now + 1year - after 365 days from now</li>
+ * <li>YYYYmmDDHHMMSSZ - UTC time (ex. 20130828235959Z)</li>
+ * <li>number - UNIX origin time (seconds from 1970-01-01 00:00:00) (ex. 1377714748)</li>
+ * </ul>
  */
 KJUR.jws.IntDate.get = function(s) {
     if (s == "now") {
 	return KJUR.jws.IntDate.getNow();
+    } else if (s == "now + 1hour") {
+	return KJUR.jws.IntDate.getNow() + 60 * 60;
+    } else if (s == "now + 1day") {
+	return KJUR.jws.IntDate.getNow() + 60 * 60 * 24;
+    } else if (s == "now + 1month") {
+	return KJUR.jws.IntDate.getNow() + 60 * 60 * 24 * 30;
+    } else if (s == "now + 1year") {
+	return KJUR.jws.IntDate.getNow() + 60 * 60 * 24 * 365;
     } else if (s.match(/Z$/)) {
 	return KJUR.jws.IntDate.getZulu(s);
+    } else if (s.match(/^[0-9]+$/)) {
+	return parseInt(s);
     }
     throw "unsupported format: " + s;
 };
@@ -647,4 +681,24 @@ KJUR.jws.IntDate.getNow = function() {
     return d;
 };
 
+/*
+ * @since jws 3.0.1
+ */
+KJUR.jws.IntDate.intDate2UTCString = function(intDate) {
+    var d = new Date(intDate * 1000);
+    return d.toUTCString();
+};
 
+/*
+ * @since jws 3.0.1
+ */
+KJUR.jws.IntDate.intDate2Zulu = function(intDate) {
+    var d = new Date(intDate * 1000);
+    var year = ("0000" + d.getUTCFullYear()).slice(-4);    
+    var mon =  ("00" + (d.getUTCMonth() + 1)).slice(-2);    
+    var day =  ("00" + d.getUTCDate()).slice(-2);    
+    var hour = ("00" + d.getUTCHours()).slice(-2);    
+    var min =  ("00" + d.getUTCMinutes()).slice(-2);    
+    var sec =  ("00" + d.getUTCSeconds()).slice(-2);    
+    return year + mon + day + hour + min + sec + "Z";
+};

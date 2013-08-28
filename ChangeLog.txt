@@ -1,6 +1,10 @@
 
 ChangeLog for jsjws
 
+* 3.0.1 Release (2013-Aug-28)
+ - jws 3.0.0 to 3.0.1
+   - new KJUR.jws.IntDate class for time format of JWT
+
 * 3.0.0 Release (2013-Aug-27)
  - easy and powerful sign and verify methods available
  - now supports HS{256,512},RS{256,384,512},ES{256,384},PS{256,384,512},none
