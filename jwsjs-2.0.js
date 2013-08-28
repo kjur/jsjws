@@ -29,6 +29,7 @@ if (typeof KJUR.jws == "undefined" || !KJUR.jws) KJUR.jws = {};
 /**
  * JSON Web Signature JSON Serialization (JWSJS) class.<br/>
  * @class JSON Web Signature JSON Serialization (JWSJS) class
+ * @name KJUR.jws.JWSJS
  * @property {array of String} aHeader array of Encoded JWS Headers
  * @property {String} sPayload Encoded JWS payload
  * @property {array of String} aSignature array of Encoded JWS signature value
