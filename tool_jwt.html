@@ -116,7 +116,7 @@ function _getClaim() {
   if (document.form1.sub1.value != '')
     r.sub = document.form1.sub1.value;
   if (document.form1.nbf1.value != '')
-    r.sub = KJUR.jws.IntDate.get(document.form1.nbf1.value);
+    r.nbf = KJUR.jws.IntDate.get(document.form1.nbf1.value);
   if (document.form1.exp1.value != '')
     r.exp = KJUR.jws.IntDate.get(document.form1.exp1.value);
   if (document.form1.iat1.value != '')
