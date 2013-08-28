@@ -389,6 +389,14 @@ KJUR.jws.JWS = function() {
  * <tr><td>PS512</td><td>OPTIONAL</td><td>SUPPORTED</td></tr>
  * <tr><td>none</td><td>REQUIRED</td><td>SUPPORTED</td></tr>
  * </table>
+ * <dl>
+ * <dt>NOTE1:
+ * <dd>salt length of RSAPSS signature is the same as the hash algorithm length
+ * because of <a href="http://www.ietf.org/mail-archive/web/jose/current/msg02901.html">IETF JOSE ML discussion</a>.
+ * <dt>NOTE2:
+ * <dd>The reason of HS384 unsupport is  
+ * <a href="https://code.google.com/p/crypto-js/issues/detail?id=84">CryptoJS HmacSHA384 bug</a>.
+ * </dl>
  */
 KJUR.jws.JWS.sign = function(alg, sHeader, sPayload, key, pass) {
     var ns1 = KJUR.jws.JWS;
@@ -598,3 +606,45 @@ KJUR.jws.JWS.getEncodedSignatureValueFromJWS = function(sJWS) {
     }
     return RegExp.$1;
 };
+
+/*
+ * @since jws 3.0.1
+ */
+KJUR.jws.IntDate = function() {
+};
+
+/*
+ * @since jws 3.0.1
+ */
+KJUR.jws.IntDate.get = function(s) {
+    if (s == "now") {
+	return KJUR.jws.IntDate.getNow();
+    } else if (s.match(/Z$/)) {
+	return KJUR.jws.IntDate.getZulu(s);
+    }
+    throw "unsupported format: " + s;
+};
+
+KJUR.jws.IntDate.getZulu = function(s) {
+    if (a = s.match(/(\d{4})(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)Z/)) {
+	var year = parseInt(RegExp.$1);
+	var month = parseInt(RegExp.$2) - 1;
+	var day = parseInt(RegExp.$3);
+	var hour = parseInt(RegExp.$4);
+	var min = parseInt(RegExp.$5);
+	var sec = parseInt(RegExp.$6);
+	var d = new Date(Date.UTC(year, month, day, hour, min, sec));
+	return ~~(d / 1000);
+    }
+    throw "unsupported format: " + s;
+};
+
+/*
+ * @since jws 3.0.1
+ */
+KJUR.jws.IntDate.getNow = function() {
+    var d = ~~(new Date() / 1000);
+    return d;
+};
+
+

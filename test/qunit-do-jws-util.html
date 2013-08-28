@@ -2,29 +2,31 @@
           "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<script type="text/javascript" src="jquery-1.4.2.min.js"></script>
-<script type="text/javascript" src="qunit.js"></script>
+<title>QUnit for 'jws.js' utility methods</title>
 <link rel="stylesheet" href="qunit.css" type="text/css" media="screen" />
 
+<script type="text/javascript" src="jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="qunit.js"></script>
+
 <script language="JavaScript" type="text/javascript" src="../ext/json-sans-eval.js"></script>
-<script language="JavaScript" type="text/javascript" src="../jws-2.0.js"></script>
+<script language="JavaScript" type="text/javascript" src="../jws-3.0.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
 
 test("isSafeJSONString", function() {
   expect(4);
-  equals(KJUR.jws.JWS.isSafeJSONString("{'aaa':'bbb'}"), 1, "1 - {'aaa':'bbb'}");
-  equals(KJUR.jws.JWS.isSafeJSONString("{aaa:bbb}"), 1, "1 - {aaa:bbb}");
-  equals(KJUR.jws.JWS.isSafeJSONString("1234"), 0, "0 - 1234");
-  equals(KJUR.jws.JWS.isSafeJSONString("'abcd'"), 0, "0 - 'abcd'");
+  equal(KJUR.jws.JWS.isSafeJSONString("{'aaa':'bbb'}"), 1, "1 - {'aaa':'bbb'}");
+  equal(KJUR.jws.JWS.isSafeJSONString("{aaa:bbb}"), 1, "1 - {aaa:bbb}");
+  equal(KJUR.jws.JWS.isSafeJSONString("1234"), 0, "0 - 1234");
+  equal(KJUR.jws.JWS.isSafeJSONString("'abcd'"), 0, "0 - 'abcd'");
 });
 
 test("readSafeJSONString 1", function() {
   var a = KJUR.jws.JWS.readSafeJSONString("{\"aaa\":\"bbb\"}");
   expect(2);
-  equals(typeof a, "object", "object");
-  equals(a.aaa, "bbb", "bbb");
+  equal(typeof a, "object", "object");
+  equal(a.aaa, "bbb", "bbb");
 });
 
 });
@@ -32,9 +34,7 @@ test("readSafeJSONString 1", function() {
   
 </head>
 <body>
-<h1 id="qunit-header">QUnit for 'jws.js' utility methods</h1>
-<h2 id="qunit-banner"></h2>
-<h2 id="qunit-userAgent"></h2>
-<ol id="qunit-tests"></ol>
+<div id="qunit"></div>
+<div id="qunit-fixture">test markup</div>
 </body>
 </html>
