@@ -4,7 +4,7 @@
 <head>
 <meta charset='utf-8' />
 <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-<meta name="description" content="jsjws : pure JavaScript implementation of JSON Web Signature(JWS) and JSON Web Token(JWT)" />
+<meta name="description" content="jsjws : pure JavaScript implementation of JSON Web Token(JWT) and JSON Web Signature(JWS)" />
 <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 <title>jsjws</title>
 </head>
@@ -51,15 +51,16 @@ which is a kind of parallel or independent signature format by multiple signers.
 
 <h3>FEATURES</h3>
 <ul>
-<li>sign and verify a JSON Web Signature(JWS) of RSA algorithm</li>
+<li>sign and verify a JSON Web Token(JWT) and Signature(JWS) with RSA/RSAPSS/ECDSA algorithm</li>
 <li>implemented by pure JavaScript</li>
-<li>'jsjws' will work on any modern browsers including smart phones</li>
-<li>'jsjws' all algorithms except HS384 and ES512 (i.e. jsjws now supports 
+<li>work on any modern browsers including smart phones</li>
+<li>supports all algorithms except HS384 and ES512 (i.e. jsjws now supports 
      HS256, HS512, RS256, RS384, RS512, ES256, ES384, PS256, PS384, PS512, none.)</li>
 <li>powerful and easy 'sign' and 'verify' method.</li>
-<li>'jsjws' can be used with naked key, X.509 certificate and PKCS#1 private key</li>
-<li>'jsjws' supports UTF-8 characters including CJK, Latin and non-ASCII in JWS Header and Payload</li>
+<li>used with naked key, X.509 certificate and PKCS#5/PKCS#8 encrypted/plain private/public key</li>
+<li>supports UTF-8 characters including CJK, Latin and non-ASCII in JWS Header and Payload</li>
 <li>sign and verify a JSON Web Signature JSON Serialization (JWS-JS)</li>
+
 </ul>
 
 <h3>NEWS</h3>
