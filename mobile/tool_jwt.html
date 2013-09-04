@@ -52,6 +52,14 @@
 <script language="JavaScript" type="text/javascript" src="ext/json-sans-eval.js"></script>
 <script language="JavaScript" type="text/javascript" src="jws-3.0.min.js"></script>
 
+<script leanguage="JavaScript" type="text/javascript">
+$(function() {
+  $('#btn-parse1').click(function() {
+    alert('btn-parse1 clicked');
+  });
+});
+</script>
+
 </head>
 
 <body>
@@ -123,7 +131,7 @@ This is a sample program just to parse JSON Web Token(JWT).
 <form name="form3" id="form3">
 <textarea rows="10" cols="10">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL2p3dC1pZHAuZXhhbXBsZS5jb20iLCJzdWIiOiJtYWlsdG86bWlrZUBleGFtcGxlLmNvbSIsIm5iZiI6MTM3ODI3NTMwMiwiZXhwIjoxMzc4Mjc4OTAyLCJpYXQiOjEzNzgyNzUzMDIsImp0aSI6ImlkMTIzNDU2IiwidHlwIjoiaHR0cHM6Ly9leGFtcGxlLmNvbS9yZWdpc3RlciJ9.fWNOjt3Xa72gc4uqFILE6tdf6TVqtC0Tws2w5rkllb0</textarea>
 
-<a href="#" data-role="button">Parse it!</a>
+<a href="#" data-role="button" id="btn-parse1">Parse it!</a>
 
 <h2>JWT Header</h2>
 <textarea rows="10" cols="10">
