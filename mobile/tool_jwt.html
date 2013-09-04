@@ -8,6 +8,50 @@
 <link href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" rel="stylesheet" type="text/css">
 <script src="http://code.jquery.com/jquery-1.7.1.min.js" type="text/javascript"></script>
 <script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js" type="text/javascript"></script>
+
+<script src="http://yui.yahooapis.com/2.9.0/build/yahoo/yahoo-min.js"></script>
+
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/core-min.js"></script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/x64-core-min.js"></script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/hmac-min.js"></script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/sha256-min.js"></script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/sha224-min.js"></script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/sha512-min.js"></script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/sha384-min.js"></script>
+
+<!-- for PKCS5 encrypted key -->
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/md5-min.js"></script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/enc-base64-min.js"></script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/cipher-core-min.js"></script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/tripledes-min.js"></script>
+<!-- for PKCS8 encrypted key -->
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/sha1-min.js"></script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/pbkdf2-min.js"></script>
+
+<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/ext/prng4.js"></script>
+<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/ext/jsbn.js"></script>
+<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/ext/jsbn2.js"></script>
+<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/ext/rsa.js"></script>
+<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/ext/rsa2.js"></script>
+<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/ext/base64.js"></script>
+<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/ext/rng.js"></script>
+<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/base64x-1.1.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/asn1hex-1.1.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/crypto-1.1.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/pkcs5pkey-1.0.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/rsasign-1.2.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/rsapem-1.1.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/x509-1.1.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/asn1-1.0.min.js"></script>
+
+<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/ext/ec.js"></script>
+<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/ext/ec-patch.js"></script>
+<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/ecdsa-modified-1.0.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/ecparam-1.0.min.js"></script>
+
+<script language="JavaScript" type="text/javascript" src="ext/json-sans-eval.js"></script>
+<script language="JavaScript" type="text/javascript" src="jws-3.0.min.js"></script>
+
 </head>
 
 <body>
@@ -75,6 +119,12 @@ This is a sample program to generate and verify JSON Web Token(JWT).
 </div>
 <div data-role="content">
 This is a sample program just to parse JSON Web Token(JWT).
+
+<form name="form3" id="form3">
+<textarea rows="10" cols="10">
+</textarea>
+
+</form>
 
 <h2>demo</h2>
 <ul data-role="listview" data-inset="true">
