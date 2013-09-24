@@ -4,7 +4,7 @@
 <head>
 <meta charset='utf-8' />
 <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-<meta name="description" content="jsjws : pure JavaScript implementation of JSON Web Token(JWT) and JSON Web Signature(JWS)" />
+<meta name="description" content="jsjws : pure JavaScript implementation of JWT ( JSON Web Token ) and JWS ( JSON Web Signature )" />
 <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 <title>jsjws</title>
 </head>
@@ -17,8 +17,7 @@
           <a id="forkme_banner" href="https://github.com/kjur/jsjws">View on GitHub</a>
 
           <h1 id="project_title">jsjws</h1>
-          <h2 id="project_tagline">pure JavaScript implementation of JOSE JSON Web Signature(JWS), JSON Web Token(JWT) and JWS-JS</h2>
-
+          <h2 id="project_tagline">jsjws : pure JavaScript implementation of JWT ( JSON Web Token ) and JWS ( JSON Web Signature )</h2>
           <section id="downloads">
             <a class="zip_download_link" href="https://github.com/kjur/jsjws/zipball/master">Download this project as a .zip file</a>
             <a class="tar_download_link" href="https://github.com/kjur/jsjws/tarball/master">Download this project as a tar.gz file</a>
@@ -56,7 +55,7 @@ which is a kind of parallel or independent signature format by multiple signers.
 <li>implemented by pure JavaScript</li>
 <li>work on any modern browsers including smart phones</li>
 <li>supports all algorithms except HS384 and ES512 (i.e. jsjws now supports 
-     HS256, HS512, RS256, RS384, RS512, ES256, ES384, PS256, PS384, PS512, none.)</li>
+     HS256, HS384, HS512, RS256, RS384, RS512, ES256, ES384, PS256, PS384, PS512, none.)</li>
 <li>powerful and easy 'sign' and 'verify' method.</li>
 <li>used with naked key, X.509 certificate and PKCS#5/PKCS#8 encrypted/plain private/public key</li>
 <li>supports UTF-8 characters including CJK, Latin and non-ASCII in JWS Header and Payload</li>
@@ -66,11 +65,17 @@ which is a kind of parallel or independent signature format by multiple signers.
 
 <h3>NEWS</h3>
 <dl>
+<dt><b>2013-Sep-24</b>
+<dd>
+3.0.2 released. Now supports HS384 (HmacSHA384) signature 
+by CryptoJS patch.
+
 <dt><b>2013-Sep-04</b>
 <dd>
 The jsjws page for <a href="http://kjur.github.io/jsjws/mobile/">iPhone and Android</a> is now available.
 <a href="http://kjur.github.io/jsjws/mobile/tool_jwt.html">JWT siging/verifying demo for smart phone</a>
 is also available.
+
 <dt><b>2013-Aug-29</b>
 <dd>
 <a href="index_mat.html">Document "Algorithm Support Matrix for JWT/JWS Implementations" added.</a>
