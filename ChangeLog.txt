@@ -1,6 +1,14 @@
 
 ChangeLog for jsjws
 
+* 3.0.2 Release (2013-Sep-24)
+ - add HS384 support with jsrsasign 4.1.4 or later.
+   Please use 
+     'http://kjur.github.io/jsrsasign/ext/cryptojs-312-core-fix.js' or 
+     'http://kjur.github.io/jsrsasign/ext/cryptojs-312-core-fix-min.js' or 
+     'http://kjur.github.io/jsrsasign/jsrsasign-4.1.4-all-min.js'
+   instead of orignal 'core.js' of CryptoJS.
+
 * 3.0.1 Release (2013-Aug-28)
  - jws 3.0.0 to 3.0.1
    - new KJUR.jws.IntDate class for time format of JWT
