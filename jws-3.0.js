@@ -1,9 +1,9 @@
-/*! jws-3.0.0 (c) 2013 Kenji Urushima | kjur.github.com/jsjws/license
+/*! jws-3.0.2 (c) 2013 Kenji Urushima | kjur.github.com/jsjws/license
  */
 /*
  * jws.js - JSON Web Signature Class
  *
- * version: 3.0.0 (2013 Aug 27)
+ * version: 3.0.2 (2013 Sep 24)
  *
  * Copyright (c) 2010-2013 Kenji Urushima (kenji.urushima@gmail.com)
  *
@@ -18,7 +18,7 @@
  * @fileOverview
  * @name jws-3.0.js
  * @author Kenji Urushima kenji.urushima@gmail.com
- * @version 3.0.0 (2013-Aug-27)
+ * @version 3.0.1 (2013-Sep-24)
  * @since jsjws 1.0
  * @license <a href="http://kjur.github.io/jsjws/license/">MIT License</a>
  */
@@ -53,7 +53,7 @@ if (typeof KJUR.jws == "undefined" || !KJUR.jws) KJUR.jws = {};
  * <table>
  * <tr><th>alg value</th><th>spec requirement</th><th>jsjws support</th></tr>
  * <tr><td>HS256</td><td>REQUIRED</td><td>SUPPORTED</td></tr>
- * <tr><td>HS384</td><td>OPTIONAL</td><td>-</td></tr>
+ * <tr><td>HS384</td><td>OPTIONAL</td><td>SUPPORTED</td></tr>
  * <tr><td>HS512</td><td>OPTIONAL</td><td>SUPPORTED</td></tr>
  * <tr><td>RS256</td><td>RECOMMENDED</td><td>SUPPORTED</td></tr>
  * <tr><td>RS384</td><td>OPTIONAL</td><td>SUPPORTED</td></tr>
@@ -66,6 +66,7 @@ if (typeof KJUR.jws == "undefined" || !KJUR.jws) KJUR.jws = {};
  * <tr><td>PS512</td><td>OPTIONAL</td><td>SUPPORTED</td></tr>
  * <tr><td>none</td><td>REQUIRED</td><td>SUPPORTED</td></tr>
  * </table>
+ * NOTE: HS384 is supported since jsjws 3.0.2 with jsrsasign 4.1.4.
  */
 KJUR.jws.JWS = function() {
 

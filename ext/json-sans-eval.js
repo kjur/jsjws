@@ -1,3 +1,5 @@
+/*! Mike Samuel (c) 2009 | code.google.com/p/json-sans-eval
+ */
 // This source code is free for use in the public domain.
 // NO WARRANTY EXPRESSED OR IMPLIED. USE AT YOUR OWN RISK.
 
