@@ -158,7 +158,7 @@ KJUR.jws.JWSJS = function() {
 
     /**
      * read JWS-JS string.<br/>
-     * @name raedJWSJS
+     * @name readJWSJS
      * @memberOf KJUR.jws.JWSJS
      * @function
      * @param {String} string of JWS-JS to load.
