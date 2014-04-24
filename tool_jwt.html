@@ -100,17 +100,18 @@ function _setAlg() {
     case 0: _setKey('', ''); break;
     case 1: _setKey('616161', ''); break;
     case 2: _setKey('616161', ''); break;
-    case 3: _setKey(z4PrvP5EPem, z4PrvP5EPass); break;
+    case 3: _setKey('616161', ''); break;
     case 4: _setKey(z4PrvP5EPem, z4PrvP5EPass); break;
     case 5: _setKey(z4PrvP5EPem, z4PrvP5EPass); break;
-    case 6: _setKey(k1PrvP8PPem, ''); break;
-    case 7: _setKey(k6PrvP8PPem, ''); break;
-    case 8: _setKey(z4PrvP5EPem, z4PrvP5EPass); break;
+    case 6: _setKey(z4PrvP5EPem, z4PrvP5EPass); break;
+    case 7: _setKey(k1PrvP8PPem, ''); break;
+    case 8: _setKey(k6PrvP8PPem, ''); break;
     case 9: _setKey(z4PrvP5EPem, z4PrvP5EPass); break;
     case 10: _setKey(z4PrvP5EPem, z4PrvP5EPass); break;
-    case 11: _setKey(z4PrvP5PPem, ''); break;
-    case 12: _setKey(z4PrvP8PPem, ''); break;
-    case 13: _setKey(z4PrvP8EPem, z4PrvP8EPass); break;
+    case 11: _setKey(z4PrvP5EPem, z4PrvP5EPass); break;
+    case 12: _setKey(z4PrvP5PPem, ''); break;
+    case 13: _setKey(z4PrvP8PPem, ''); break;
+    case 14: _setKey(z4PrvP8EPem, z4PrvP8EPass); break;
   }
 }
 
@@ -397,7 +398,7 @@ Choose JWS signature algorithm and default value: <br/>
 <option value="RS256"/> RS256 (SHA256withRSA RSA2048bit:z4) with default private key
 <option value="RS384"/> RS384 (SHA384withRSA RSA2048bit:z4) with default private key
 <option value="RS512"/> RS512 (SHA512withRSA RSA2048bit:z4) with default private key
-<option value="ES256"/> ES256 (SHA256withECDSA NIST P-256) with default private key
+<option value="ES256"/> ES256 (SHA256withECDSA NIST P-256:k6) with default private key
 <option value="ES384"/> ES384 (SHA384withECDSA NIST P-384) with default private key
 <option value="PS256"/> PS256 (SHA256withRSAandMGF1 RSA2048bit:z4) with default private key
 <option value="PS384"/> PS384 (SHA384withRSAandMGF1 RSA2048bit:z4) with default private key
