@@ -28,6 +28,7 @@
           <a href="http://kjur.github.io/jsjws/api/" target="_blank">API REFERENCE</a> | 
           <a href="http://kjur.github.io/jsjws/index.html#demo" target="_blank">DEMOS</a> | 
           <a href="http://kjur.github.io/jsjws/mobile/">MOBILE</a> | 
+          <a href="https://npmjs.org/package/jsrsasign" target="_blank">NPM</a> | 
         </header>
     </div>
 
@@ -54,8 +55,8 @@ which is a kind of parallel or independent signature format by multiple signers.
 <li>sign and verify a JSON Web Token(JWT) and Signature(JWS) with RSA/RSAPSS/ECDSA algorithm</li>
 <li>implemented by pure JavaScript</li>
 <li>work on any modern browsers including smart phones</li>
-<li>supports all algorithms except HS384 and ES512 (i.e. jsjws now supports 
-     HS256, HS384, HS512, RS256, RS384, RS512, ES256, ES384, PS256, PS384, PS512, none.)</li>
+<li>supports all algorithms except ES512 (i.e. jsjws now supports 
+     HS256, HS384, HS512, RS256, RS384, RS512, ES256, ES384, PS256, PS384, PS512)</li>
 <li>powerful and easy 'sign' and 'verify' method.</li>
 <li>used with naked key, X.509 certificate and PKCS#5/PKCS#8 encrypted/plain private/public key</li>
 <li>supports UTF-8 characters including CJK, Latin and non-ASCII in JWS Header and Payload</li>
@@ -65,6 +66,13 @@ which is a kind of parallel or independent signature format by multiple signers.
 
 <h3>NEWS</h3>
 <dl>
+<dt><b>2015-Apr-04</b>: 
+<dd>
+3.1.0 released. alg=none support have been removed.
+
+<dt><b>2013-Oct-07</b>: 
+<dd>Node.js <a href="https://npmjs.org/package/jsrsasign" target="_blank">npm module of jsrsasign</a> is now registered in the repository. It also includes this <a href="http://kjur.github.io/jsjws/">'jsjws'</a>.
+
 <dt><b>2013-Sep-24</b>
 <dd>
 3.0.2 released. Now supports HS384 (HmacSHA384) signature 
