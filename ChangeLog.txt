@@ -1,6 +1,10 @@
 
 ChangeLog for jsjws
 
+* 3.1.0 Release (2015-Apr-03)
+ - remove alg=none signature validation support.
+ - jsjws will be merged into jsrsasign near in the future.
+
 * 3.0.2 Release (2013-Sep-24)
  - add HS384 support with jsrsasign 4.1.4 or later.
    Please use 
