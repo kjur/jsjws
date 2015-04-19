@@ -1,6 +1,16 @@
 
 ChangeLog for jsjws
 
+* 3.2.0 Release (2015-Apr-19)
+ - JWS.verify method updated to mitigate signature replacement
+   attacks:
+   - add optional acceptAlgs argument to specify accepted
+     signature algorithms to verify.
+   - strict key type checking
+   
+remove alg=none signature validation support.
+ - jsjws will be merged into jsrsasign near in the future.
+
 * 3.1.0 Release (2015-Apr-03)
  - remove alg=none signature validation support.
  - jsjws will be merged into jsrsasign near in the future.

@@ -3,53 +3,16 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>QUnit sign() test of 'jws.js'</title>
+<title>QUnit sign() and verify() test of 'jws.js'</title>
 <link rel="stylesheet" href="qunit.css" type="text/css" media="screen" />
 
 <script type="text/javascript" src="jquery-1.4.2.min.js"></script>
 <script type="text/javascript" src="qunit.js"></script>
 
-<script src="http://yui.yahooapis.com/2.9.0/build/yahoo/yahoo-min.js"></script>
-<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/core.js"></script>
-<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/x64-core.js"></script>
-<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/hmac.js"></script>
-<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/sha256.js"></script>
-<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/sha224.js"></script>
-<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/sha512.js"></script>
-<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/sha384.js"></script>
-
-<!-- for PKCS5 encrypted key -->
-<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/md5.js"></script>
-<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/enc-base64.js"></script>
-<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/cipher-core.js"></script>
-<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/tripledes.js"></script>
-<!-- for PKCS8 encrypted key -->
-<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/sha1.js"></script>
-<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/pbkdf2.js"></script>
-
-<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/ext/prng4.js"></script>
-<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/ext/jsbn.js"></script>
-<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/ext/jsbn2.js"></script>
-<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/ext/rsa.js"></script>
-<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/ext/rsa2.js"></script>
-<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/ext/base64.js"></script>
-<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/ext/rng.js"></script>
-<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/base64x-1.1.js"></script>
-<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/asn1hex-1.1.js"></script>
-<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/crypto-1.1.js"></script>
-<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/pkcs5pkey-1.0.js"></script>
-<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/rsasign-1.2.js"></script>
-<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/rsapem-1.1.js"></script>
-<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/x509-1.1.js"></script>
-<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/asn1-1.0.js"></script>
-
-<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/ext/ec.js"></script>
-<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/ext/ec-patch.js"></script>
-<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/ecdsa-modified-1.0.js"></script>
-<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/ecparam-1.0.js"></script>
+<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/jsrsasign-latest-all-min.js"></script>
 
 <script language="JavaScript" type="text/javascript" src="../ext/json-sans-eval.js"></script>
-<script language="JavaScript" type="text/javascript" src="../jws-3.0.js"></script>
+<script language="JavaScript" type="text/javascript" src="../jws-3.2.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -322,26 +285,10 @@ test("algorithm test: PS512", function() {
 
 // 2. loading key type test
 
-test("key type test: PKCS5 plain private key (RSA)", function() {
-  expect(1);
-  var sJWS = KJUR.jws.JWS.sign(null, '{"alg":"RS256", "cty":"JWT"}', '{"age": 21}', z1PrvPemP5P);
-  equal(sJWS, 'eyJhbGciOiJSUzI1NiIsICJjdHkiOiJKV1QifQ.eyJhZ2UiOiAyMX0.RXHGIva7QOtcJFH4_FMUpvlaJShrysAZ65yL_St_CVJqqNnSyhxKguld2R3G-rNXutZr8sKuIDEotVnnbz-4OA', "1");
-});
-
-test("key type test: PKCS5 encrypted private key (RSA)", function() {
-  expect(1);
-  var sJWS = KJUR.jws.JWS.sign(null, '{"alg":"RS256", "cty":"JWT"}', '{"age": 21}', z1PrvPemP5E, z1PrvPemP5EPass);
-  equal(sJWS, 'eyJhbGciOiJSUzI1NiIsICJjdHkiOiJKV1QifQ.eyJhZ2UiOiAyMX0.RXHGIva7QOtcJFH4_FMUpvlaJShrysAZ65yL_St_CVJqqNnSyhxKguld2R3G-rNXutZr8sKuIDEotVnnbz-4OA', "1");
-});
-
-test("key type test: PKCS8 encrypted private key (RSA)", function() {
-  expect(1);
-  var sJWS = KJUR.jws.JWS.sign(null, '{"alg":"RS256", "cty":"JWT"}', '{"age": 21}', z1PrvPemP8E, z1PrvPemP8EPass);
-  equal(sJWS, 'eyJhbGciOiJSUzI1NiIsICJjdHkiOiJKV1QifQ.eyJhZ2UiOiAyMX0.RXHGIva7QOtcJFH4_FMUpvlaJShrysAZ65yL_St_CVJqqNnSyhxKguld2R3G-rNXutZr8sKuIDEotVnnbz-4OA', "1");
-});
 
 // 2. verify test for algorithm name
 
+/*
 test("verify test for algorithm none", function() {
   expect(1);
   var result = KJUR.jws.JWS.verify('eyJjdHkiOiJKV1QiLCJhbGciOiJub25lIn0.eyJhZ2UiOiAyMX0.');
@@ -353,6 +300,7 @@ test("verify test for algorithm none with ignored key", function() {
   var result = KJUR.jws.JWS.verify('eyJjdHkiOiJKV1QiLCJhbGciOiJub25lIn0.eyJhZ2UiOiAyMX0.', 'ignored key');
   equal(result, true, "");
 });
+ */
 
 test("verify test for algorithm HS256", function() {
   expect(1);
@@ -418,16 +366,38 @@ test("verify test for algorithm PS512 z4", function() {
   equal(KJUR.jws.JWS.verify('eyJhbGciOiJQUzUxMiIsICJjdHkiOiJKV1QifQ.eyJhZ2UiOiAyMX0.MkwM9gx9CAcRo7x_vJDF23IIpLfB-nY7w5azrbre10OJWeDGPBoZJTJiucXwLzD_C-nrSnnnioTqRm8UeTL9je36HTfAG_8LvWzWUR11WY5SvhYnX-Nynw98I11EKLDGMjrSRUjbPELQICZ8CpniupcH9PCr-ExhcDZtcTVywST5IPsj01fKvtNyFPV-KHFnDEFd2U5MBdOKDOiqU2jrlG6WGKM_irDZ4jw01dSdn4kEsPYYC7U5dsQ91tcpeyGrj0EoD03-NbaHlF9LFd4RH1L2Eglj5zW664X4_86yVtF5inTKZqQHGoQ-KjY2BycJR7_K29Rgrp86SP2SEx4nEw', z4PubPemP8), true, "1");
 });
 
-test("verify test for key type PKCS8 public key z1", function() {
+// x. acceptAlgs test
+/*
+test("arg test", function() {
   expect(1);
-  var result = KJUR.jws.JWS.verify('eyJhbGciOiJSUzI1NiIsICJjdHkiOiJKV1QifQ.eyJhZ2UiOiAyMX0.RXHGIva7QOtcJFH4_FMUpvlaJShrysAZ65yL_St_CVJqqNnSyhxKguld2R3G-rNXutZr8sKuIDEotVnnbz-4OA', z1PubPemP8);
-  equal(result, true, "1");
+  var func1 = function(a, b) {
+    return b;
+  };
+  var result = func1(1);
+  equal(result, null, "unspecified arg is null");
+});
+ */
+
+test("arg acceptAlgs test (HS256 not in [HS512])", function() {
+  expect(1);
+  var msg = "";
+  try {
+    var result = KJUR.jws.JWS.verify(sJWSHS256, hJWSHSPass, ["HS512"]);
+  } catch(ex) {
+    msg = ex;
+  }
+  equal(msg, "algorithm 'HS256' not accepted in the list", "");
 });
 
-test("verify test for key type X.509 public key certificate z1", function() {
+test("arg acceptAlgs test (HS256 in [HS256])", function() {
   expect(1);
-  var result = KJUR.jws.JWS.verify('eyJhbGciOiJSUzI1NiIsICJjdHkiOiJKV1QifQ.eyJhZ2UiOiAyMX0.RXHGIva7QOtcJFH4_FMUpvlaJShrysAZ65yL_St_CVJqqNnSyhxKguld2R3G-rNXutZr8sKuIDEotVnnbz-4OA', z1CertPEM);
-  equal(result, true, "1");
+  var msg = "";
+  try {
+    var result = KJUR.jws.JWS.verify(sJWSHS256, hJWSHSPass, ["HS256"]);
+  } catch(ex) {
+    msg = ex;
+  }
+  equal(msg, "", "");
 });
 
 });
@@ -437,6 +407,10 @@ test("verify test for key type X.509 public key certificate z1", function() {
 <body>
 <div id="qunit"></div>
 <div id="qunit-fixture">test markup</div>
+<p>
+<a href="qunit-do-jws-sign.html">sign/verify</a> | 
+<a href="qunit-do-jws-sign-slow.html">sign/verify slow</a> | 
+</p>
 </body>
 </html>
 
