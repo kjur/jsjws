@@ -219,7 +219,7 @@ ul.inheritsList
 				JSON Web Signature(JWS) class
 				
 				
-					<br /><i>Defined in: </i> <a href="../symbols/src/jws-3.1.js.html">jws-3.1.js</a>.
+					<br /><i>Defined in: </i> <a href="../symbols/src/jws-3.2.js.html">jws-3.2.js</a>.
 				
 			</p>
 
@@ -438,10 +438,10 @@ This method supports following algorithms.</div>
 						<tr>
 							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">KJUR.jws.JWS.<b><a href="../symbols/KJUR.jws.JWS.html#.verify">verify</a></b>(sJWS, key)
+								<div class="fixedFont">KJUR.jws.JWS.<b><a href="../symbols/KJUR.jws.JWS.html#.verify">verify</a></b>(sJWS, key, acceptAlgs)
 								</div>
 								<div class="description">verify JWS signature by specified key or certificate<br/>
-This method verifies a JSON Web Signature Compact Serialization string by the validation algorithm as described in <a href="http://self-issued.info/docs/draft-jones-json-web-signature-04.html#anchor5">the section 5 of Internet Draft draft-jones-json-web-signature-04.</div>
+<p>This method verifies a JSON Web Signature Compact Serialization string by the validation algorithm as described in <a href="http://self-issued.info/docs/draft-jones-json-web-signature-04.html#anchor5">the section 5 of Internet Draft draft-jones-json-web-signature-04.</div>
 							</td>
 						</tr>
 					
@@ -494,7 +494,7 @@ This method verifies a JSON Web Signature Compact Serialization string by the va
 				
 				<div class="description">
 					JSON Web Signature(JWS) class.<br/>
-<h4>Supported Algorithms</h4>Here is supported algorithm names for <a href="../symbols/KJUR.jws.JWS.html#.sign">KJUR.jws.JWS.sign</a> and <a href="../symbols/KJUR.jws.JWS.html#.verify">KJUR.jws.JWS.verify</a>methods.<table><tr><th>alg value</th><th>spec requirement</th><th>jsjws support</th></tr><tr><td>HS256</td><td>REQUIRED</td><td>SUPPORTED</td></tr><tr><td>HS384</td><td>OPTIONAL</td><td>SUPPORTED</td></tr><tr><td>HS512</td><td>OPTIONAL</td><td>SUPPORTED</td></tr><tr><td>RS256</td><td>RECOMMENDED</td><td>SUPPORTED</td></tr><tr><td>RS384</td><td>OPTIONAL</td><td>SUPPORTED</td></tr><tr><td>RS512</td><td>OPTIONAL</td><td>SUPPORTED</td></tr><tr><td>ES256</td><td>RECOMMENDED+</td><td>SUPPORTED</td></tr><tr><td>ES384</td><td>OPTIONAL</td><td>SUPPORTED</td></tr><tr><td>ES512</td><td>OPTIONAL</td><td>-</td></tr><tr><td>PS256</td><td>OPTIONAL</td><td>SUPPORTED</td></tr><tr><td>PS384</td><td>OPTIONAL</td><td>SUPPORTED</td></tr><tr><td>PS512</td><td>OPTIONAL</td><td>SUPPORTED</td></tr><tr><td>none</td><td>REQUIRED</td><td>SUPPORTED(generation only)</td></tr></table>NOTE1: HS384 is supported since jsjws 3.0.2 with jsrsasign 4.1.4.<br/>NOTE2: alg=none validation was removed since jsjws 3.1.0.<br/>
+<h4>Supported Algorithms</h4>Here is supported algorithm names for <a href="../symbols/KJUR.jws.JWS.html#.sign">KJUR.jws.JWS.sign</a> and <a href="../symbols/KJUR.jws.JWS.html#.verify">KJUR.jws.JWS.verify</a>methods.<table><tr><th>alg value</th><th>spec requirement</th><th>jsjws support</th></tr><tr><td>HS256</td><td>REQUIRED</td><td>SUPPORTED</td></tr><tr><td>HS384</td><td>OPTIONAL</td><td>SUPPORTED</td></tr><tr><td>HS512</td><td>OPTIONAL</td><td>SUPPORTED</td></tr><tr><td>RS256</td><td>RECOMMENDED</td><td>SUPPORTED</td></tr><tr><td>RS384</td><td>OPTIONAL</td><td>SUPPORTED</td></tr><tr><td>RS512</td><td>OPTIONAL</td><td>SUPPORTED</td></tr><tr><td>ES256</td><td>RECOMMENDED+</td><td>SUPPORTED</td></tr><tr><td>ES384</td><td>OPTIONAL</td><td>SUPPORTED</td></tr><tr><td>ES512</td><td>OPTIONAL</td><td>-</td></tr><tr><td>PS256</td><td>OPTIONAL</td><td>SUPPORTED</td></tr><tr><td>PS384</td><td>OPTIONAL</td><td>SUPPORTED</td></tr><tr><td>PS512</td><td>OPTIONAL</td><td>SUPPORTED</td></tr><tr><td>none</td><td>REQUIRED</td><td>SUPPORTED(signature generation only)</td></tr></table>NOTE1: HS384 is supported since jsjws 3.0.2 with jsrsasign 4.1.4.<br/>
 					
 				</div>
 				
@@ -1185,7 +1185,7 @@ This method verifies a JSON Web Signature Compact Serialization string by the va
 					</div>
 					<div class="description">
 						generate JWS signature by specified key<br/>
-This method supports following algorithms.<table><tr><th>alg value</th><th>spec requirement</th><th>jsjws support</th></tr><tr><td>HS256</td><td>REQUIRED</td><td>SUPPORTED</td></tr><tr><td>HS384</td><td>OPTIONAL</td><td>-</td></tr><tr><td>HS512</td><td>OPTIONAL</td><td>SUPPORTED</td></tr><tr><td>RS256</td><td>RECOMMENDED</td><td>SUPPORTED</td></tr><tr><td>RS384</td><td>OPTIONAL</td><td>SUPPORTED</td></tr><tr><td>RS512</td><td>OPTIONAL</td><td>SUPPORTED</td></tr><tr><td>ES256</td><td>RECOMMENDED+</td><td>SUPPORTED</td></tr><tr><td>ES384</td><td>OPTIONAL</td><td>SUPPORTED</td></tr><tr><td>ES512</td><td>OPTIONAL</td><td>-</td></tr><tr><td>PS256</td><td>OPTIONAL</td><td>SUPPORTED</td></tr><tr><td>PS384</td><td>OPTIONAL</td><td>SUPPORTED</td></tr><tr><td>PS512</td><td>OPTIONAL</td><td>SUPPORTED</td></tr><tr><td>none</td><td>REQUIRED</td><td>SUPPORTED(generation only)</td></tr></table><dl><dt>NOTE1:<dd>salt length of RSAPSS signature is the same as the hash algorithm lengthbecause of <a href="http://www.ietf.org/mail-archive/web/jose/current/msg02901.html">IETF JOSE ML discussion</a>.<dt>NOTE2:<dd>The reason of HS384 unsupport is  <a href="https://code.google.com/p/crypto-js/issues/detail?id=84">CryptoJS HmacSHA384 bug</a>.<dt>NOTE3:<dd>alg=none validation was removed since jsjws 3.1.0.<br/></dl>
+This method supports following algorithms.<table><tr><th>alg value</th><th>spec requirement</th><th>jsjws support</th></tr><tr><td>HS256</td><td>REQUIRED</td><td>SUPPORTED</td></tr><tr><td>HS384</td><td>OPTIONAL</td><td>-</td></tr><tr><td>HS512</td><td>OPTIONAL</td><td>SUPPORTED</td></tr><tr><td>RS256</td><td>RECOMMENDED</td><td>SUPPORTED</td></tr><tr><td>RS384</td><td>OPTIONAL</td><td>SUPPORTED</td></tr><tr><td>RS512</td><td>OPTIONAL</td><td>SUPPORTED</td></tr><tr><td>ES256</td><td>RECOMMENDED+</td><td>SUPPORTED</td></tr><tr><td>ES384</td><td>OPTIONAL</td><td>SUPPORTED</td></tr><tr><td>ES512</td><td>OPTIONAL</td><td>-</td></tr><tr><td>PS256</td><td>OPTIONAL</td><td>SUPPORTED</td></tr><tr><td>PS384</td><td>OPTIONAL</td><td>SUPPORTED</td></tr><tr><td>PS512</td><td>OPTIONAL</td><td>SUPPORTED</td></tr><tr><td>none</td><td>REQUIRED</td><td>SUPPORTED(signature generation only)</td></tr></table><dl><dt>NOTE1:<dd>salt length of RSAPSS signature is the same as the hash algorithm lengthbecause of <a href="http://www.ietf.org/mail-archive/web/jose/current/msg02901.html">IETF JOSE ML discussion</a>.<dt>NOTE2:<dd>The reason of HS384 unsupport is  <a href="https://code.google.com/p/crypto-js/issues/detail?id=84">CryptoJS HmacSHA384 bug</a>.</dl>
 						
 						
 					</div>
@@ -1263,15 +1263,19 @@ This method supports following algorithms.<table><tr><th>alg value</th><th>spe
 					<div class="fixedFont">&lt;static&gt; 
 					
 					<span class="light">{Boolean}</span>
-					<span class="light">KJUR.jws.JWS.</span><b>verify</b>(sJWS, key)
+					<span class="light">KJUR.jws.JWS.</span><b>verify</b>(sJWS, key, acceptAlgs)
 					
 					</div>
 					<div class="description">
 						verify JWS signature by specified key or certificate<br/>
-This method verifies a JSON Web Signature Compact Serialization string by the validation algorithm as described in <a href="http://self-issued.info/docs/draft-jones-json-web-signature-04.html#anchor5">the section 5 of Internet Draft draft-jones-json-web-signature-04.</a><br/>NOTE: alg=none validation was removed since jsjws 3.1.0.<br/>
+<p>This method verifies a JSON Web Signature Compact Serialization string by the validation algorithm as described in <a href="http://self-issued.info/docs/draft-jones-json-web-signature-04.html#anchor5">the section 5 of Internet Draft draft-jones-json-web-signature-04.</a></p><p>Since 3.2.0 strict key checking has been provided against a JWS algorithmin a JWS header.<ul><li>In case 'alg' is 'HS*' in the JWS header,'key' shall be hexadecimal string for Hmac{256,384,512} shared secret key.Otherwise it raise an error.</li><li>In case 'alg' is 'RS*' or 'PS*' in the JWS header,'key' shall be a RSAKey object or a PEM string ofX.509 RSA public key certificate or PKCS#8 RSA public key.Otherwise it raise an error.</li><li>In case 'alg' is 'ES*' in the JWS header,'key' shall be a KJUR.crypto.ECDSA object or a PEM string ofX.509 ECC public key certificate or PKCS#8 ECC public key.Otherwise it raise an error.</li><li>In case 'alg' is 'none' in the JWS header,validation not supported after jsjws 3.1.0.</li></ul></p><p>NOTE1: The argument 'acceptAlgs' is supported since 3.2.0.Strongly recommended to provide acceptAlgs to mitigatesignature replacement attacks.<br/></p>
 						
 						
 					</div>
+					
+					
+					
+					<pre class="code">// 1) verify a RS256 JWS signature by a certificate string.var isValid = KJUR.jws.JWS.verify('eyJh...', '-----BEGIN...', ['RS256']);// 2) verify a HS256 JWS signature by a certificate string.var isValid = KJUR.jws.JWS.verify('eyJh...', '6f62ad...', ['HS256']);// 3) verify a ES256 JWS signature by a KJUR.crypto.ECDSA key object.var pubkey = KEYUTIL.getKey('-----BEGIN CERT...');var isValid = KJUR.jws.JWS.verify('eyJh...', pubkey);</pre>
 					
 					
 					
@@ -1286,10 +1290,16 @@ This method verifies a JSON Web Signature Compact Serialization string by the va
 								<dd>string of JWS signature to verify</dd>
 							
 								<dt>
-									<span class="light fixedFont">{String}</span> <b>key</b>
+									<span class="light fixedFont">{Object}</span> <b>key</b>
 									
 								</dt>
 								<dd>string of public key, certificate or key object to verify</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>acceptAlgs</b>
+									
+								</dt>
+								<dd>array of algorithm name strings (OPTION)</dd>
 							
 							</dl>
 						
