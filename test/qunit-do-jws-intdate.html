@@ -14,21 +14,34 @@
 <script type="text/javascript">
 $(document).ready(function(){
 
-test("1", function() {
+test("abs(new Date() - getNow()) < 3", function() {
   expect(1);
-  equal(KJUR.jws.IntDate.getNow(), 1, "1");
-  //equal(KJUR.jws.IntDate.getNow() > 1377661868760, true, "1");
-  //                                  1300815780
+  var tNow1 = KJUR.jws.IntDate.getNow();
+  var tNow2 = ~~(new Date() / 1000);
+  var delta = Math.abs(tNow2 - tNow1);
+  equal(delta < 3, true, "");
 });
 
-test("1", function() {
+test("abs(new Date() - get('now') < 3", function() {
   expect(1);
-  equal(KJUR.jws.IntDate.get('now'), 1, "1");
+  var tNow1 = KJUR.jws.IntDate.get('now');
+  var tNow2 = ~~(new Date() / 1000);
+  var delta = Math.abs(tNow2 - tNow1);
+  equal(delta < 3, true, "");
 });
 
-test("1", function() {
+test("60*60-3 < get('now + 1hour') - get('now') < 60*60+3", function() {
+  expect(2);
+  var tNow1 = KJUR.jws.IntDate.get('now');
+  var tNow2 = KJUR.jws.IntDate.get('now + 1hour');
+  var delta = tNow2 - tNow1
+  equal(delta < 60 * 60 + 3, true, "");
+  equal(delta > 60 * 60 - 3, true, "");
+});
+
+test("getZulu(20130828042500Z) = 1377663900", function() {
   expect(1);
-  equal(KJUR.jws.IntDate.getZulu('20130828042500Z'), 1, "1");
+  equal(KJUR.jws.IntDate.getZulu('20130828042500Z'), 1377663900, "");
 });
 
 test("getZulu 19700101000000Z", function() {
@@ -53,5 +66,8 @@ test("intDate2Zulu(0)==19700201000000Z", function() {
 <body>
 <div id="qunit"></div>
 <div id="qunit-fixture">test markup</div>
+<a href="qunit-do-jws-sign.html">sign/verify</a> | 
+<a href="qunit-do-jws-sign-slow.html">sign/verify slow</a> | 
+<a href="qunit-do-jws-intdate.html">IntDate</a> | 
 </body>
 </html>
