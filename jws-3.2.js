@@ -1,9 +1,9 @@
-/*! jws-3.2.0 (c) 2013-2015 Kenji Urushima | kjur.github.com/jsjws/license
+/*! jws-3.2.1 (c) 2013-2015 Kenji Urushima | kjur.github.com/jsjws/license
  */
 /*
  * jws.js - JSON Web Signature Class
  *
- * version: 3.2.0 (2015 Apr 3)
+ * version: 3.2.1 (2015 Apr 19)
  *
  * Copyright (c) 2010-2015 Kenji Urushima (kenji.urushima@gmail.com)
  *
@@ -18,7 +18,7 @@
  * @fileOverview
  * @name jws-3.2.js
  * @author Kenji Urushima kenji.urushima@gmail.com
- * @version 3.2.0 (2015-Apr-18)
+ * @version 3.2.1 (2015-Apr-19)
  * @since jsjws 1.0
  * @license <a href="http://kjur.github.io/jsjws/license/">MIT License</a>
  */
@@ -403,7 +403,7 @@ KJUR.jws.JWS.sign = function(alg, sHeader, sPayload, key, pass) {
     var ns1 = KJUR.jws.JWS;
 
     if (! ns1.isSafeJSONString(sHeader))
-	throw "JWS Head is not safe JSON string: " + sHead;
+	throw "JWS Head is not safe JSON string: " + sHeader;
 
     var pHeader = ns1.readSafeJSONString(sHeader);
 
