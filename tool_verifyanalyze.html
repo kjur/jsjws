@@ -6,26 +6,10 @@
     <meta name="description" content="jsjws : pure JavaScript implementation of JSON Web Signature" />
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
     <title>Online JWS verifier/analyzer</title>
-    <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/core.js"></script>
-    <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/sha1.js"></script>
-    <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/sha256.js"></script>
-    <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/x64-core.js"></script>
-    <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/sha512.js"></script>
+<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/jsrsasign-latest-all-min.js"></script>
+<script language="JavaScript" type="text/javascript" src="ext/json-sans-eval-min.js"></script>
+<script language="JavaScript" type="text/javascript" src="jws-3.2.js"></script>
 
-    <script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/ext/base64.js"></script>
-    <script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/ext/jsbn.js"></script>
-    <script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/ext/jsbn2.js"></script>
-    <script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/ext/rsa.js"></script>
-    <script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/ext/rsa2.js"></script>
-    <script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/rsapem-1.1.js"></script>
-    <script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/rsasign-1.2.min.js"></script>
-    <script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/asn1hex-1.1.js"></script>
-    <script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/x509-1.1.js"></script>
-    <script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/crypto-1.1.js"></script>
-    <script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/base64x-1.1.js"></script>
-
-    <script language="JavaScript" type="text/javascript" src="ext/json-sans-eval.js"></script>
-    <script language="JavaScript" type="text/javascript" src="jws-3.1.js"></script>
     <script language="JavaScript" type="text/javascript">
 function doVerify() {
   var sJWS = document.form1.jws1.value;

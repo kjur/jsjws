@@ -1,6 +1,11 @@
 
 ChangeLog for jsjws
 
+* 3.2.2 Release (2015-Apr-26)
+ - isSafeJSONString undefined bugfix
+ - readSafeJSONString undefined bugfix
+ - sample codes bugfix
+
 * 3.2.0 Release (2015-Apr-19)
  - JWS.verify method updated to mitigate signature replacement
    attacks:

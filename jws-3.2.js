@@ -1,9 +1,9 @@
-/*! jws-3.2.1 (c) 2013-2015 Kenji Urushima | kjur.github.com/jsjws/license
+/*! jws-3.2.2 (c) 2013-2015 Kenji Urushima | kjur.github.com/jsjws/license
  */
 /*
  * jws.js - JSON Web Signature Class
  *
- * version: 3.2.1 (2015 Apr 19)
+ * version: 3.2.2 (2015 Apr 26)
  *
  * Copyright (c) 2010-2015 Kenji Urushima (kenji.urushima@gmail.com)
  *
@@ -18,7 +18,7 @@
  * @fileOverview
  * @name jws-3.2.js
  * @author Kenji Urushima kenji.urushima@gmail.com
- * @version 3.2.1 (2015-Apr-19)
+ * @version 3.2.2 (2015-Apr-26)
  * @since jsjws 1.0
  * @license <a href="http://kjur.github.io/jsjws/license/">MIT License</a>
  */
@@ -69,6 +69,7 @@ if (typeof KJUR.jws == "undefined" || !KJUR.jws) KJUR.jws = {};
  * NOTE1: HS384 is supported since jsjws 3.0.2 with jsrsasign 4.1.4.<br/>
  */
 KJUR.jws.JWS = function() {
+	var ns1 = KJUR.jws.JWS;
 
     // === utility =============================================================
 
@@ -112,7 +113,7 @@ KJUR.jws.JWS = function() {
 	this.parsedJWS.headS = sHead;
 	this.parsedJWS.payloadS = sPayload;
 
-	if (! this.isSafeJSONString(sHead, this.parsedJWS, 'headP'))
+	if (! ns1.isSafeJSONString(sHead, this.parsedJWS, 'headP'))
 	    throw "malformed JSON string for JWS Head: " + sHead;
     };
 
@@ -273,7 +274,7 @@ KJUR.jws.JWS = function() {
      * @deprecated from 3.0.0 please move to {@link KJUR.jws.JWS.sign}
      */
     this.generateJWSByNED = function(sHead, sPayload, hN, hE, hD) {
-	if (! this.isSafeJSONString(sHead)) throw "JWS Head is not safe JSON string: " + sHead;
+	if (! ns1.isSafeJSONString(sHead)) throw "JWS Head is not safe JSON string: " + sHead;
 	var sSI = _getSignatureInputByString(sHead, sPayload);
 	var hSigValue = _jws_generateSignatureValueBySI_NED(sHead, sPayload, sSI, hN, hE, hD);
 	var b64SigValue = hextob64u(hSigValue);
@@ -302,7 +303,7 @@ KJUR.jws.JWS = function() {
      */
     this.generateJWSByKey = function(sHead, sPayload, key) {
 	var obj = {};
-	if (!this.isSafeJSONString(sHead, obj, 'headP'))
+	if (! ns1.isSafeJSONString(sHead, obj, 'headP'))
 	    throw "JWS Head is not safe JSON string: " + sHead;
 	var sSI = _getSignatureInputByString(sHead, sPayload);
 	var b64SigValue = _jws_generateSignatureValueBySI_Key(sHead, sPayload, sSI, key, obj.headP);
@@ -341,7 +342,7 @@ KJUR.jws.JWS = function() {
      * @deprecated from 3.0.0 please move to {@link KJUR.jws.JWS.sign}
      */
     this.generateJWSByP1PrvKey = function(sHead, sPayload, sPemPrvKey) {
-	if (! this.isSafeJSONString(sHead)) throw "JWS Head is not safe JSON string: " + sHead;
+	if (! ns1.isSafeJSONString(sHead)) throw "JWS Head is not safe JSON string: " + sHead;
 	var sSI = _getSignatureInputByString(sHead, sPayload);
 	var hSigValue = _jws_generateSignatureValueBySI_PemPrvKey(sHead, sPayload, sSI, sPemPrvKey);
 	var b64SigValue = hextob64u(hSigValue);
@@ -652,13 +653,13 @@ KJUR.jws.JWS.jwsalg2sigalg = {
 KJUR.jws.JWS.isSafeJSONString = function(s, h, p) {
     var o = null;
     try {
-	o = jsonParse(s);
-	if (typeof o != "object") return 0;
-	if (o.constructor === Array) return 0;
-	if (h) h[p] = o;
-	return 1;
+		o = jsonParse(s);
+		if (typeof o != "object") return 0;
+		if (o.constructor === Array) return 0;
+		if (h) h[p] = o;
+		return 1;
     } catch (ex) {
-	return 0;
+		return 0;
     }
 };
 
@@ -677,12 +678,12 @@ KJUR.jws.JWS.isSafeJSONString = function(s, h, p) {
 KJUR.jws.JWS.readSafeJSONString = function(s) {
     var o = null;
     try {
-	o = jsonParse(s);
-	if (typeof o != "object") return null;
-	if (o.constructor === Array) return null;
-	return o;
+		o = jsonParse(s);
+		if (typeof o != "object") return null;
+		if (o.constructor === Array) return null;
+		return o;
     } catch (ex) {
-	return null;
+		return null;
     }
 };
 
