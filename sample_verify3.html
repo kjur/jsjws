@@ -1,54 +1,38 @@
 <html>
 <head>
-<title>Sample JWS Verification Application</title>
-<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/core.js"></script>
-<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/sha1.js"></script>
-<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/sha256.js"></script>
-<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/x64-core.js"></script>
-<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/sha512.js"></script>
-
-<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/ext/base64.js"></script>
-<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/ext/jsbn.js"></script>
-<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/ext/jsbn2.js"></script>
-<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/ext/rsa.js"></script>
-<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/ext/rsa2.js"></script>
-<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/rsapem-1.1.js"></script>
-<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/asn1hex-1.1.js"></script>
-<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/x509-1.1.js"></script>
-<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/crypto-1.1.js"></script>
-<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/base64x-1.1.js"></script>
-<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/rsasign-1.2.js"></script>
-
-<script language="JavaScript" type="text/javascript" src="ext/json-sans-eval.js"></script>
-<script language="JavaScript" type="text/javascript" src="jws-3.1.js"></script>
+<title>Sample JWS Verification Application(NOT WORKS)</title>
+<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/jsrsasign-latest-all-min.js"></script>
+<script language="JavaScript" type="text/javascript" src="ext/json-sans-eval-min.js"></script>
+<script language="JavaScript" type="text/javascript" src="jws-3.2.js"></script>
 
 <style type="text/css">
 TD  {vertical-align: top; border: solid 1px #000000; }
 </style>
 <script language="JavaScript" type="text/javascript">
 function doVerify() {
+  var jws = new KJUR.jws.JWS();
   var sJWS = document.form1.jws1.value;
   var sCert = document.form1.cert1.value;
 
-  var jws = new KJUR.jws.JWS();
   var result = 0;
-  //try {
+  try {
     var cert = new X509();
-    cert.readCertPEM(sCert);
-    result = jws.verifyJWSByKey(sJWS, cert.subjectPublicKeyRSA);
-  //} catch (ex) {
-  //  alert("Error: " + ex);
-  //  result = 0;
-  //}
+    var pubkey = KEYUTIL.getKey(sCert);
+    result = KJUR.jws.JWS.verify(sJWS, pubkey);
+  } catch (ex) {
+    alert("Error: " + ex);
+    result = 0;
+  }
 
-  document.form1.im_enchead1.value = jws.parsedJWS.headB64U;
-  document.form1.im_encpayload1.value = jws.parsedJWS.payloadB64U;
-  document.form1.im_encsigval1.value = jws.parsedJWS.sigvalB64U;
-  document.form1.im_siginput1.value = jws.parsedJWS.si;
-  document.form1.im_sigval_h1.value = jws.parsedJWS.sigvalH;
-
-  document.form1.im_head1.value = jws.parsedJWS.headS;
-  document.form1.im_payload1.value = jws.parsedJWS.payloadS;
+  try {
+    document.form1.im_enchead1.value = jws.parsedJWS.headB64U;
+    document.form1.im_encpayload1.value = jws.parsedJWS.payloadB64U;
+    document.form1.im_encsigval1.value = jws.parsedJWS.sigvalB64U;
+    document.form1.im_siginput1.value = jws.parsedJWS.si;
+    document.form1.im_sigval_h1.value = jws.parsedJWS.sigvalH;
+    document.form1.im_head1.value = jws.parsedJWS.headS;
+    document.form1.im_payload1.value = jws.parsedJWS.payloadS;
+  } catch (ex) {}
 
   if (result == 1) {
     alert("JWS signature is *Valid*.");
@@ -72,28 +56,26 @@ Default values are cited from <a href="http://tools.ietf.org/html/draft-jones-js
 <table width="100%">
 <tbody>
 <tr><td rowspan="2">Input</td><td>JWS</td><td colspan="2">
-<textarea name="jws1" rows="8" cols="100">
-eyJhbGciOiJQUzI1NiJ9.eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ.D9-tkEEU1-kgfZ2g4WjaYwZLpDxjt8D83IsGOeaiBzLeUDMYmlqt5hspvpkLZOeSb8jEtgTdEQ77u1QReGbMw_5n9kaarXI1KJbTFbkOOP0O7ElSqK1Ebfrw8BQR-Ws0e-Qz0N0O8WFtwDpmeysnE0juwF_r18Qv8S3QnrWPkIUB7buDIaOldDfts4nyLSUj0X-C3WHK-JpZ-jXGpI5OMAObIY1FLvSKYmJPXKUWe1t3mecrzQgQSGsNg2WoiosgLzk8JrTjIFX9XTLTQRNZevDgy-2VfGr43K80SslJD3a_f-Cpl6IzaHmFWotSzYJ5e4n5fc9Q7UVIWwgrtxiqYg</textarea></td></tr>
+<textarea name="jws1" rows="8" cols="100">eyJhbGciOiJQUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL2p3dC1pZHAuZXhhbXBsZS5jb20iLCJzdWIiOiJtYWlsdG86bWlrZUBleGFtcGxlLmNvbSIsIm5iZiI6MTQzMDA1MTUzMiwiZXhwIjoxNDMwMDU1MTMyLCJpYXQiOjE0MzAwNTE1MzIsImp0aSI6ImlkMTIzNDU2IiwidHlwIjoiaHR0cHM6Ly9leGFtcGxlLmNvbS9yZWdpc3RlciJ9.UbXdFgYOu8Cidtmlmy_BGNvUErCSnyoj0w0FnV8UI8cRP8ftuN8MLxBoQVx9U8_W7owa2I8T9E2_gSv72sdS-bY9SH-M9o058VkbMSSzyfsKs1Fe8s3T30erJmmHd3JGaPmdoCrco8Q_3rgtGd_mlQ0PYovLFuO9gXi7AhZuRJFFN3q2gtaPG4bSCv5nXt15ApMIo_FutCovBNgCZcdBWvsGA6QnuouEEXVLjmsiQuwRKyuw6MhWQeMNp551aSxJNBZVqmfnkKZb-DOasoqDFIK0uaNrvptYCD7fE_URA9emi9k4yXhk7iY0PArLy-R5pdJmiNENdQmW9t2EKSgwIg</textarea></td></tr>
 <tr><td>PEM X.509 Certificate verify with</td><td colspan="2">
 <textarea name="cert1" cols="65" rows="8">-----BEGIN CERTIFICATE-----
-MIIDMjCCAhqgAwIBAgIJAKMfG/B2MKd5MA0GCSqGSIb3DQEBBQUAMBoxCzAJBgNV
-BAYTAkpQMQswCQYDVQQKEwJ6MzAeFw0xMDA1MzEwNjE4MDhaFw0yMDA1MjgwNjE4
-MDhaMBoxCzAJBgNVBAYTAkpQMQswCQYDVQQKEwJ6MzCCASIwDQYJKoZIhvcNAQEB
-BQADggEPADCCAQoCggEBAOKosPD1rOz6Z5wtgVBKA0XMFxfKavF09f9x3N3LlCcF
-/6LTXn6/waJq93bTNBESzdw63qQl77sxFORXCVQ1Ad7CPqRbY4ywVw/8yZri9wH4
-PdSfae/fg5vuN3EesLissFSceQySHbMBeqEAw84cLvPXdlecdNmlwfS6nV5D8Ijt
-HkebP8R14AEpfoag3VS/YS6Hd4hmvZ1e3BJQm3JfFFVzTyZ0AH2oimsxfoQnZf7M
-qyIdCgmeaKYILEyYm6PKhVwZhuD5E+WG4RxNdcGCiC8GRUr2fYnXUT0CtwrYBYgZ
-121cFObeu7Z/aTIsx4MqYLHwaHqMga6U7nOHoEgqY7ECAwEAAaN7MHkwHQYDVR0O
-BBYEFKO4NcUDh3J5c7XD7j4pVXnzIfALMEoGA1UdIwRDMEGAFKO4NcUDh3J5c7XD
-7j4pVXnzIfALoR6kHDAaMQswCQYDVQQGEwJKUDELMAkGA1UEChMCejOCCQCjHxvw
-djCneTAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBBQUAA4IBAQC8JdiwJF22/3nB
-IxJT/gXXN10cub6O+x9q64ls7dpGpBvbi4/lJgZOsZqoJiswU5WOKZ4MTOmMHe4W
-e/MHuhcjsgf9EHHYZQ1reBYi/l9mBBbYFGs0zSv1CyjbwkyF36nr/8sWdYf4ZtXQ
-nzTGvoa6oTOOTmmj3Bwl3CHwonvgAJUCHY/UmWFzH8Sf0dDW7iJBj+ZWfjuSlSQe
-2ninrEpfA4v2V1p3LOH+layZLDMJHkNCq8eoU1MbJi07cHxLWtlwliNOiRboaiYl
-1wtWR7ZY4HZCPeyb0tanf58rBQAXElaCF3fmfHrlpxoJBsQP1NbFrBs2haOIEZ4E
-K3V9/Bpi
+MIIC/zCCAeegAwIBAgIBATANBgkqhkiG9w0BAQUFADAaMQswCQYDVQQGEwJVUzEL
+MAkGA1UECgwCWjQwHhcNMTMwODI4MTgyODM0WhcNMjMwODI4MTgyODM0WjAaMQsw
+CQYDVQQGEwJVUzELMAkGA1UECgwCWjQwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAw
+ggEKAoIBAQDfdOqotHd55SYO0dLz2oXengw/tZ+q3ZmOPeVmMuOMIYO/Cv1wk2U0
+OK4pug4OBSJPhl09Zs6IwB8NwPOU7EDTgMOcQUYB/6QNCI1J7Zm2oLtuchzz4pIb
++o4ZAhVprLhRyvqi8OTKQ7kfGfs5Tuwmn1M/0fQkfzMxADpjOKNgf0uy6lN6utjd
+TrPKKFUQNdc6/Ty8EeTnQEwUlsT2LAXCfEKxTn5RlRljDztS7Sfgs8VL0FPy1Qi8
+B+dFcgRYKFrcpsVaZ1lBmXKsXDRu5QR/Rg3f9DRq4GR1sNH8RLY9uApMl2SNz+sR
+4zRPG85R/se5Q06Gu0BUQ3UPm67ETVZLAgMBAAGjUDBOMB0GA1UdDgQWBBQHZPTE
+yQVu/0I/3QWhlTyW7WoTzTAfBgNVHSMEGDAWgBQHZPTEyQVu/0I/3QWhlTyW7WoT
+zTAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBBQUAA4IBAQDHxqJ9y8alTH7agVMW
+Zfic/RbrdvHwyq+IOrgDToqyo0w+IZ6BCn9vjv5iuhqu4ForOWDAFpQKZW0DLBJE
+Qy/7/0+9pk2DPhK1XzdOovlSrkRt+GcEpGnUXnzACXDBbO0+Wrk+hcjEkQRRK1bW
+2rknARIEJG9GS+pShP9Bq/0BmNsMepdNcBa0z3a5B0fzFyCQoUlX6RTqxRw1h1Qt
+5F00pfsp7SjXVIvYcewHaNASbto1n5hrSz1VY9hLba11ivL1N4WoWbmzAL6BWabs
+C2D/MenST2/X6hTKyGXpg3Eg2h3iLvUtwcNny0hRKstc73Jl9xR3qXfXKJH0ThTl
+q0gq
 -----END CERTIFICATE-----</textarea>
 </td></tr>
 <tr><td colspan="4">
@@ -137,7 +119,7 @@ You may see an error dialog if it is malformed signature.</li>
 </ol>
 
 <center>
-Copyright &copy; 2013 Kenji Urushima and Dave All Rights Reserved.
+Copyright &copy; 2013-2015 Kenji Urushima and Dave All Rights Reserved.
 </center>
 
 <div align="right">

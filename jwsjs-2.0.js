@@ -1,11 +1,11 @@
-/*! jwsjs-2.0.0 (c) 2013 Kenji Urushima | kjur.github.com/jsjws/license
+/*! jwsjs-2.0.1 (c) 2010-2015 Kenji Urushima | kjur.github.com/jsjws/license
  */
 /*
  * jwsjs.js - JSON Web Signature JSON Serialization (JWSJS) Class
  *
- * version: 2.0.0 (2013 Jul 20)
+ * version: 2.0.1 (2015 Apr 26)
  *
- * Copyright (c) 2010-2013 Kenji Urushima (kenji.urushima@gmail.com)
+ * Copyright (c) 2010-2015 Kenji Urushima (kenji.urushima@gmail.com)
  *
  * This software is licensed under the terms of the MIT License.
  * http://kjur.github.com/jsjws/license/
@@ -18,7 +18,7 @@
  * @fileOverview
  * @name jwsjs-2.0.js
  * @author Kenji Urushima kenji.urushima@gmail.com
- * @version 2.0.0 (2013 Jul 20)
+ * @version 2.0.1 (2015 Apr 26)
  * @since jsjws 1.2
  * @license <a href="http://kjur.github.io/jsjws/license/">MIT License</a>
  */
@@ -41,6 +41,8 @@ if (typeof KJUR.jws == "undefined" || !KJUR.jws) KJUR.jws = {};
  * @see <a href="http://tools.ietf.org/html/draft-jones-json-web-signature-json-serialization-01">IETF I-D JSON Web Signature JSON Serialization (JWS-JS) specification</a>
  */
 KJUR.jws.JWSJS = function() {
+	var ns1 = KJUR.jws.JWS;
+
     this.aHeader = [];
     this.sPayload = "";
     this.aSignature = [];
@@ -53,9 +55,9 @@ KJUR.jws.JWSJS = function() {
      * @function
      */
     this.init = function() {
-	this.aHeader = [];
-	this.sPayload = "";
-	this.aSignature = [];
+		this.aHeader = [];
+		this.sPayload = "";
+		this.aSignature = [];
     };
 
     /**
@@ -66,14 +68,14 @@ KJUR.jws.JWSJS = function() {
      * @function
      */
     this.initWithJWS = function(sJWS) {
-	this.init();
+		this.init();
 
-	var jws = new KJUR.jws.JWS();
-	jws.parseJWS(sJWS);
+		var jws = new KJUR.jws.JWS();
+		jws.parseJWS(sJWS);
 
-	this.aHeader.push(jws.parsedJWS.headB64U);
-	this.sPayload = jws.parsedJWS.payloadB64U;
-	this.aSignature.push(jws.parsedJWS.sigvalB64U);
+		this.aHeader.push(jws.parsedJWS.headB64U);
+		this.sPayload = jws.parsedJWS.payloadB64U;
+		this.aSignature.push(jws.parsedJWS.sigvalB64U);
     };
 
     // == add signature ===================================================================
@@ -86,13 +88,13 @@ KJUR.jws.JWSJS = function() {
      * @param {String} sPemPrvKey string of PKCS1 private key
      */
     this.addSignatureByHeaderKey = function(sHead, sPemPrvKey) {
-	var sPayload = b64utoutf8(this.sPayload);
+		var sPayload = b64utoutf8(this.sPayload);
 
-	var jws = new KJUR.jws.JWS();
-	var sJWS = jws.generateJWSByP1PrvKey(sHead, sPayload, sPemPrvKey);
+		var jws = new KJUR.jws.JWS();
+		var sJWS = jws.generateJWSByP1PrvKey(sHead, sPayload, sPemPrvKey);
   
-	this.aHeader.push(jws.parsedJWS.headB64U);
-	this.aSignature.push(jws.parsedJWS.sigvalB64U);
+		this.aHeader.push(jws.parsedJWS.headB64U);
+		this.aSignature.push(jws.parsedJWS.sigvalB64U);
     };
 
     /**
@@ -106,12 +108,12 @@ KJUR.jws.JWSJS = function() {
      * @param {String} sPemPrvKey string of PKCS1 private key
      */
     this.addSignatureByHeaderPayloadKey = function(sHead, sPayload, sPemPrvKey) {
-	var jws = new KJUR.jws.JWS();
-	var sJWS = jws.generateJWSByP1PrvKey(sHead, sPayload, sPemPrvKey);
+		var jws = new KJUR.jws.JWS();
+		var sJWS = jws.generateJWSByP1PrvKey(sHead, sPayload, sPemPrvKey);
   
-	this.aHeader.push(jws.parsedJWS.headB64U);
-	this.sPayload = jws.parsedJWS.payloadB64U;
-	this.aSignature.push(jws.parsedJWS.sigvalB64U);
+		this.aHeader.push(jws.parsedJWS.headB64U);
+		this.sPayload = jws.parsedJWS.payloadB64U;
+		this.aSignature.push(jws.parsedJWS.sigvalB64U);
     };
 
     // == verify signature ===================================================================
@@ -125,53 +127,52 @@ KJUR.jws.JWSJS = function() {
      * @throw if JWS-JS signature is invalid.
      */
     this.verifyWithCerts = function(aCert) {
-	if (this.aHeader.length != aCert.length) 
-	    throw "num headers does not match with num certs";
-	if (this.aSignature.length != aCert.length) 
-	    throw "num signatures does not match with num certs";
+		if (this.aHeader.length != aCert.length) 
+			throw "num headers does not match with num certs";
+		if (this.aSignature.length != aCert.length) 
+			throw "num signatures does not match with num certs";
 
-	var payload = this.sPayload;
-	var errMsg = "";
-	for (var i = 0; i < aCert.length; i++) {
-	    var cert = aCert[i];
-	    var header = this.aHeader[i];
-	    var sig = this.aSignature[i];
-	    var sJWS = header + "." + payload + "." + sig;
+		var payload = this.sPayload;
+		var errMsg = "";
+		for (var i = 0; i < aCert.length; i++) {
+			var cert = aCert[i];
+			var header = this.aHeader[i];
+			var sig = this.aSignature[i];
+			var sJWS = header + "." + payload + "." + sig;
 
-	    var jws = new KJUR.jws.JWS();
-	    try {
-		var result = jws.verifyJWSByPemX509Cert(sJWS, cert);
-		if (result != 1) {
-		    errMsg += (i + 1) + "th signature unmatch. ";
+			var jws = new KJUR.jws.JWS();
+			try {
+				var result = jws.verifyJWSByPemX509Cert(sJWS, cert);
+				if (result != 1) {
+					errMsg += (i + 1) + "th signature unmatch. ";
+				}
+			} catch (ex) {
+				errMsg += (i + 1) + "th signature fail(" + ex + "). ";
+			}
 		}
-	    } catch (ex) {
-		errMsg += (i + 1) + "th signature fail(" + ex + "). ";
-	    }
-	}
 
-	if (errMsg == "") {
-	    return 1;
-	} else {
-	    throw errMsg;
-	}
+		if (errMsg == "") {
+			return 1;
+		} else {
+			throw errMsg;
+		}
     };
 
     /**
      * read JWS-JS string.<br/>
-     * @name readJWSJS
+     * @name raedJWSJS
      * @memberOf KJUR.jws.JWSJS
      * @function
      * @param {String} string of JWS-JS to load.
      * @throw if sJWSJS is malformed or not JSON string.
      */
     this.readJWSJS = function(sJWSJS) {
-	var jws = new KJUR.jws.JWS();
-	var oJWSJS = jws.readSafeJSONString(sJWSJS);
-	if (oJWSJS == null) throw "argument is not JSON string: " + sJWSJS;
+		var oJWSJS = ns1.readSafeJSONString(sJWSJS);
+		if (oJWSJS == null) throw "argument is not JSON string: " + sJWSJS;
 
-	this.aHeader = oJWSJS.headers;
-	this.sPayload = oJWSJS.payload;
-	this.aSignature = oJWSJS.signatures;
+		this.aHeader = oJWSJS.headers;
+		this.sPayload = oJWSJS.payload;
+		this.aSignature = oJWSJS.signatures;
     };
 
     // == utility ===================================================================
@@ -182,9 +183,9 @@ KJUR.jws.JWSJS = function() {
      * @function
      */
     this.getJSON = function() {
-	return { "headers": this.aHeader,
-		 "payload": this.sPayload,
-		 "signatures": this.aSignature }; 
+		return { "headers": this.aHeader,
+				 "payload": this.sPayload,
+				 "signatures": this.aSignature }; 
     };
 
     /**
@@ -195,8 +196,8 @@ KJUR.jws.JWSJS = function() {
      * @return 1 if there is no signatures in this object, otherwise 0.
      */
     this.isEmpty = function() {
-	if (this.aHeader.length == 0) return 1; 
-	return 0;
+		if (this.aHeader.length == 0) return 1; 
+		return 0;
     };
 };
 
